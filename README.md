@@ -4,11 +4,9 @@
 
 | Nome | RM |
 |------|-----|
-| <!-- Preencher --> | <!-- Preencher --> |
-| <!-- Preencher --> | <!-- Preencher --> |
-| <!-- Preencher --> | <!-- Preencher --> |
-| <!-- Preencher --> | <!-- Preencher --> |
-| <!-- Preencher --> | <!-- Preencher --> |
+| Giulia Bugatti Fonseca | 562675 |
+| Matheus Cardoso Oliveira Lima | 565844 |
+| Silas Fernandes de Souza Fonseca | 564246 |
 
 ## Sobre o Projeto
 
