@@ -42,49 +42,40 @@ Desde o início do projeto, adotamos princípios de **Governança de Dados** e a
 
 ### Descrição
 
-Nesta etapa, buscamos e organizamos um dataset com **no mínimo 100 registros** contendo variáveis clínicas associadas a doenças cardiovasculares. Esses dados serão a base para treinamento de modelos de Machine Learning nas fases posteriores.
+Nesta etapa, organizamos um conjunto de dados estruturado contendo variáveis clínicas fundamentais para a predição de risco cardiovascular. O foco é fornecer uma base sólida que represente o estado hemodinâmico e metabólico do paciente para alimentar modelos de Machine Learning.
 
 ### Link para os Dados
 
-> **Dataset completo:** [Inserir link público do Google Drive / OneDrive aqui]
-<!-- Exemplo: https://drive.google.com/drive/folders/XXXXX -->
+> **Dataset completo:**([https://drive.google.com/file/d/1zXrqTZplxLK3EwAQ9lgl6Osovujn9AGA/view?usp=sharing](https://drive.google.com/file/d/1zXrqTZplxLK3EwAQ9lgl6Osovujn9AGA/view?usp=sharing))
 
 ### Origem dos Dados
 
-<!-- Preencher com a origem real dos dados. Exemplos de fontes possíveis:
-- UCI Heart Disease Dataset (https://archive.ics.uci.edu/dataset/45/heart+disease)
-- Kaggle Heart Failure Prediction Dataset
-- Dados simulados gerados pela equipe (descrever o método de geração)
--->
-
-**Fonte:** <!-- Preencher -->
-**Tipo:** <!-- Real / Simulado / Misto -->
-**Formato:** <!-- CSV / XLSX / JSON -->
-**Número de registros:** <!-- Preencher (mínimo 100) -->
+- **Origem dos Dados**
+- **Fonte: UCI Heart Disease Dataset - Cleveland Clinic Foundation**.
+- **Tipo: Dados Reais**.
+- **Formato: CSV (Comma-Separated Values).**
+- **Número de registros: 303 instâncias.**
 
 ### Variáveis do Dataset
 
-A tabela abaixo descreve as variáveis esperadas e sua relevância clínica:
-
 | Variável | Descrição | Relevância Clínica |
-|----------|-----------|---------------------|
-| `age` | Idade do paciente (anos) | A idade é um dos principais fatores de risco cardiovascular. A incidência de doenças cardíacas aumenta significativamente após os 45 anos em homens e 55 anos em mulheres. |
-| `sex` | Sexo biológico (M/F) | Homens e mulheres apresentam perfis de risco e sintomatologias distintas para doenças cardiovasculares, o que impacta diretamente o diagnóstico e o tratamento. |
-| `cp` | Tipo de dor torácica | A classificação da dor torácica (típica, atípica, não anginosa, assintomática) é um indicador-chave na triagem de síndromes coronarianas agudas. |
-| `trestbps` | Pressão arterial em repouso (mmHg) | Hipertensão é um dos principais fatores de risco modificáveis para insuficiência cardíaca, AVC e doença arterial coronariana. |
-| `chol` | Colesterol sérico (mg/dL) | Níveis elevados de colesterol LDL estão diretamente associados à formação de placas ateroscleróticas, aumentando o risco de infarto. |
-| `fbs` | Glicemia em jejum > 120 mg/dL | Diabetes mellitus é um fator de risco independente para doenças cardiovasculares, acelerando processos ateroscleróticos. |
-| `restecg` | Resultado do ECG em repouso | Alterações eletrocardiográficas em repouso podem indicar hipertrofia ventricular, isquemia ou arritmias subjacentes. |
-| `thalach` | Frequência cardíaca máxima atingida | A incapacidade de atingir uma frequência cardíaca adequada durante esforço pode indicar insuficiência cronotrópica, associada a maior mortalidade cardiovascular. |
-| `exang` | Angina induzida por exercício | A presença de angina durante esforço físico é um marcador clássico de isquemia miocárdica, sugerindo obstrução coronariana significativa. |
-| `oldpeak` | Depressão do segmento ST | Depressão do segmento ST durante exercício é um indicador eletrocardiográfico de isquemia, com valor prognóstico para eventos cardíacos adversos. |
-| `target` | Presença de doença cardíaca (0/1) | Variável-alvo para modelos de classificação: permite treinar algoritmos de ML para prever a probabilidade de doença cardiovascular. |
-
-> **Nota:** As variáveis listadas acima são representativas. A equipe deve ajustar esta tabela de acordo com o dataset efetivamente selecionado.
+| --- | --- | --- |
+| **Age** | Idade do paciente em anos. | Fator de risco fundamental; a probabilidade de doenças obstrutivas aumenta com a idade. |
+| **Sex** | Sexo biológico (M: Masc, F: Fem). | Homens possuem risco precoce; mulheres apresentam perfis de risco distintos após a menopausa. |
+| **ChestPainType** | Tipo de dor (TA, ATA, NAP, ASY). | A angina típica (TA) é o sinal subjetivo mais forte, elevando o risco de obstrução coronariana. |
+| **RestingBP** | Pressão arterial em repouso (mm Hg). | Hipertensão causa estresse contínuo nas paredes arteriais, facilitando o rompimento de placas. |
+| **Cholesterol** | Colesterol sérico (mg/dl). | Níveis elevados de LDL contribuem diretamente para a formação de placas ateroscleróticas. |
+| **FastingBS** | Glicemia jejum (1: >120 mg/dl). | Diabetes acelera a aterosclerose por meio de inflamação vascular crônica. |
+| **RestingECG** | Resultados do ECG em repouso. | Identifica sinais de hipertrofia ventricular esquerda ou anormalidades elétricas iniciais. |
+| **MaxHR** | Freq. cardíaca máxima atingida. | Reflete a eficiência cronotrópica; falhas em atingir a meta indicam disfunção cardiovascular. |
+| **ExerciseAngina** | Angina por exercício (Y: Sim, N: Não). | Marcador clássico de obstrução coronariana significativa sob estresse físico. |
+| **Oldpeak** | Depressão de ST induzida por exercício. | Indicador eletrocardiográfico de isquemia miocárdica com alto valor preditivo para eventos agudos. |
+| **ST_Slope** | Inclinação de ST (Up, Flat, Down). | Reflete a gravidade da isquemia; inclinações descendentes sugerem pior prognóstico. |
+| **HeartDisease** | Presença de doença (1: Sim, 0: Não). | Variável alvo que permite o treinamento supervisionado de algoritmos de classificação. |
 
 ### Justificativa para IA
 
-Essas variáveis permitem construir modelos preditivos de risco cardiovascular usando algoritmos como Regressão Logística, Random Forest, XGBoost e redes neurais. As variáveis contínuas (pressão, colesterol, frequência cardíaca) podem servir como entrada para sistemas de monitoramento IoT em tempo real, enquanto as categóricas (tipo de dor, resultado de ECG) auxiliam na triagem automatizada de pacientes.
+Essas variáveis foram selecionadas por serem preditores biológicos validados em larga escala. Do ponto de vista da Inteligência Artificial, variáveis como `oldpeak` (ECG) e `ca` (fluoroscopia) possuem alta importância (*feature importance*) para algoritmos de Random Forest e Redes Neurais, permitindo que o modelo aprenda a correlação entre sintomas subjetivos (dor no peito) e marcadores fisiológicos objetivos (pressão e frequência cardíaca) para antecipar diagnósticos de infarto com acurácia superior aos escores de risco manuais.
 
 ---
 
