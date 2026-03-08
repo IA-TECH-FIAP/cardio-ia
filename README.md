@@ -205,7 +205,7 @@ imagens/
     │   ├── p3/
     │   └── ...
     └── labels.csv
-    ```
+```
 
 ### Resumo das Fontes Utilizadas
 
