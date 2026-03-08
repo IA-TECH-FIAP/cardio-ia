@@ -132,11 +132,6 @@ Nesta etapa, reunimos imagens médicas de três tipos de exames cardiológicos, 
 
 A proposta foi selecionar bases que realmente contêm imagens (.png, .jpg ou equivalentes), com acesso relativamente simples para uso acadêmico, e estruturar os arquivos em pastas organizadas por tipo de exame e por classe clínica sempre que possível.
 
-### Link para as Imagens
-
-> Imagens completas: [Inserir link público do Google Drive / OneDrive aqui]
-<!-- Exemplo: https://drive.google.com/drive/folders/XXXXX -->
-
 ### Tipos de Exame Selecionados
 
 #### 1. Eletrocardiogramas (ECG)
@@ -151,14 +146,14 @@ Licença: CC BY 4.0
 Para a modalidade de ECG, foi selecionada a base ECG Images dataset of Cardiac Patients, disponibilizada no Mendeley Data. Trabalhos recentes que utilizam essa base descrevem um total de 928 imagens de ECG, organizadas em quatro classes clínicas: condição normal, infarto do miocárdio, batimento anormal e histórico de infarto.
 
 Arquitetura de pastas (ECG):
-
+```
 imagens/
 └── ecg/
     ├── normal/
     ├── batimento_anormal/
     ├── infarto/
     └── historico_infarto/
-
+```
 #### 2. Raios-X torácicos
 
 Tipo de exame: Raio-X torácico  
@@ -172,6 +167,7 @@ Para a modalidade de raio-X torácico, foi escolhida a versão do dataset NIH Ch
 
 Arquitetura de pastas (Raio-X):
 
+```
 imagens/
 └── rx/
     ├── nenhuma_doenca_encontrada/
@@ -181,7 +177,7 @@ imagens/
     ├── pleural/
     ├── pneumonia/
     └── pneumothorax/
-
+```
 #### 3. Angiogramas coronarianos
 
 Tipo de exame: Angiogramas coronarianos  
@@ -195,6 +191,7 @@ Para a modalidade de angiografia coronariana, foi escolhida a base CADICA, dispo
 
 Arquitetura de pastas (Angiograma):
 
+```
 imagens/
 └── angiograma/
     ├── com_lesao/
@@ -208,6 +205,7 @@ imagens/
     │   ├── p3/
     │   └── ...
     └── labels.csv
+    ```
 
 ### Resumo das Fontes Utilizadas
 
