@@ -20,11 +20,35 @@ Este repositório corresponde à **Fase 1 — Batimentos de Dados**, na qual ass
 
 ```
 cardio-ia/
-├── README.md              # Este arquivo
-├── docs/                  # Textos médicos para NLP (Parte 2)
-│   ├── texto1.txt         # (a definir)
-│   └── texto2.txt         # (a definir)
-└── ...
+├── README.md                          # Este arquivo
+├── LICENSE
+├── docs/                              # Textos médicos e imagens (Partes 2 e 3)
+│   ├── *.pdf                          # 10 artigos científicos (NLP)
+│   └── imagens/
+│       ├── angiograma/
+│       │   ├── labels.csv
+│       │   ├── com_lesao/
+│       │   │   ├── p1/
+│       │   │   ├── p10/
+│       │   │   ├── p11/
+│       │   │   └── ...
+│       │   └── sem_lesao/
+│       │       ├── p1/
+│       │       ├── p10/
+│       │       ├── p16/
+│       │       └── ...
+│       ├── ecg/
+│       │   └── train/
+│       │       ├── batimento cardíaco anormal/
+│       │       ├── histórico de infarto do miocárdio/
+│       │       ├── infarto do miocárdio/
+│       │       └── normal/
+│       └── raio_x/
+│           └── train/
+│               ├── Fibrose/
+│               ├── Hernia/
+│               ├── Pleural/
+│               └── Pneumonia/
 ```
 
 ## Governança de Dados e Viés
