@@ -83,24 +83,27 @@ Essas variáveis foram selecionadas por serem preditores biológicos validados e
 
 ### Descrição
 
-Nesta etapa, reunimos **no mínimo dois textos** (`.txt`) relacionados a doenças cardíacas, saúde pública cardiovascular, sintomas ou tratamentos. Os textos estão armazenados na subpasta `docs/` deste repositório.
+Nesta etapa, reunimos artigos científicos (`.pdf`) relacionados a doenças cardíacas, saúde pública cardiovascular, sintomas ou tratamentos. Os textos estão armazenados na subpasta `docs/` deste repositório.
 
 ### Textos Coletados
 
 | Arquivo | Título / Descrição | Fonte |
 |---------|-------------------|-------|
-| `docs/texto1.txt` | <!-- Preencher --> | <!-- Preencher (ex.: SciELO, BVS, SUS, Projeto Gutenberg) --> |
-| `docs/texto2.txt` | <!-- Preencher --> | <!-- Preencher --> |
+| `docs/incidencia_e_fatores_de_risco_associados_ao_infarto_agudo_do_miocardio_sem_obstrucao_coronariana.pdf` | Incidência e fatores de risco associados ao infarto agudo do miocárdio sem obstrução coronariana | SciELO |
+| `docs/miocardiopatia_nao_compactada_uma_visao_atual.pdf` | Miocardiopatia não compactada: uma visão atual | SciELO |
+| `docs/fatores_de_risco_cardiovascular_saberes_e_praticas_de_cuidado_de_mulheres_possibilidade_para_rever_habitos.pdf` | Fatores de risco cardiovascular: saberes e práticas de cuidado de mulheres — possibilidade para rever hábitos | BVS |
+| `docs/anti_inflamatorios_nao_esteroides_efeitos_cardiovasculares_cerebro_vasculares_e_renais.pdf` | Anti-inflamatórios não esteroides: efeitos cardiovasculares, cerebrovasculares e renais | SciELO |
+| `docs/prevalencia_e_caracterizacao_do_fenotipo_de_cardiomiopatia_hipertrofica_avaliado_por_ecocardiografia_em_uma_populacao_adulta_brasileira_o_estudo_elsa_brasil.pdf` | Prevalência e caracterização do fenótipo de cardiomiopatia hipertrófica avaliado por ecocardiografia em uma população adulta brasileira: o estudo ELSA-Brasil | SciELO |
+| `docs/hipertensao_arterial_sistemica_como_fator_determinante_para_desencadeamento_de_hemorragias_encefalicas_uma_analise_reflexiva.pdf` | Hipertensão arterial sistêmica como fator determinante para desencadeamento de hemorragias encefálicas: uma análise reflexiva | BVS |
+| `docs/associacao_do_estresse_percebido_e_qualidade_do_sono_de_hipertensos_resistentes_estudo_transversal.pdf` | Associação do estresse percebido e qualidade do sono de hipertensos resistentes: estudo transversal | SciELO |
+| `docs/fatores_associados_ao_risco_cardiovascular_em_pessoas_vivendo_com_hiv_aids.pdf` | Fatores associados ao risco cardiovascular em pessoas vivendo com HIV/AIDS | SciELO |
+| `docs/hipertensao_arterial_na_gestacao.pdf` | Hipertensão arterial na gestação | BVS |
+| `docs/doencas_cardiovasculares_em_trabalhadores_da_saude_fatores_de_risco_e_estrategias_preventivas_no_brasil.pdf` | Doenças cardiovasculares em trabalhadores da saúde: fatores de risco e estratégias preventivas no Brasil | BVS |
 
-<!-- Adicionar mais linhas conforme necessário -->
-
-### Fontes Sugeridas
+### Fontes
 
 - **SciELO** (Scientific Electronic Library Online): https://scielo.org
 - **BVS** (Biblioteca Virtual em Saúde): https://bvsalud.org
-- **Ministério da Saúde / SUS**: https://www.gov.br/saude
-- **Projeto Gutenberg**: https://www.gutenberg.org
-- **PubMed Central**: https://www.ncbi.nlm.nih.gov/pmc/
 
 ### Aplicações em NLP
 
