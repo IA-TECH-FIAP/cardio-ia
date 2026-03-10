@@ -124,33 +124,96 @@ A análise de textos médicos via NLP é fundamental para o CardioIA porque gran
 
 ### Descrição
 
-Nesta etapa, reunimos **no mínimo 100 imagens** (`.jpg` ou `.png`) de exames cardiológicos, como eletrocardiogramas (ECGs), angiogramas coronarianos ou raios-X torácicos.
+Nesta etapa, reunimos imagens médicas de três tipos de exames cardiológicos, com foco em aplicações de Visão Computacional no projeto CardioIA:
 
-### Link para as Imagens
-
-> **Imagens completas:** [Inserir link público do Google Drive / OneDrive aqui]
-<!-- Exemplo: https://drive.google.com/drive/folders/XXXXX -->
-
-### Tipo de Exame Selecionado
-
-<!-- Preencher com o tipo de exame escolhido pela equipe. Exemplos:
 - Eletrocardiogramas (ECG)
-- Raio-X torácico
+- Raios-X torácicos
 - Angiogramas coronarianos
-- Ecocardiogramas
--->
 
-**Tipo de exame:** <!-- Preencher -->
-**Número de imagens:** <!-- Preencher (mínimo 100) -->
-**Formato:** <!-- JPG / PNG -->
-**Fonte:** <!-- Preencher (ex.: PhysioNet, Kaggle, NIH Chest X-rays, etc.) -->
+A proposta foi selecionar bases que realmente contêm imagens (.png, .jpg ou equivalentes), com acesso relativamente simples para uso acadêmico, e estruturar os arquivos em pastas organizadas por tipo de exame e por classe clínica sempre que possível.
 
-### Fontes Sugeridas
+### Tipos de Exame Selecionados
 
-- **PhysioNet** (PTB-XL ECG Dataset): https://physionet.org/content/ptb-xl/
-- **NIH Chest X-ray Dataset**: https://nihcc.app.box.com/v/ChestXray-NIHCC
-- **Kaggle** (diversos datasets de imagens médicas): https://www.kaggle.com
-- **MIMIC-CXR** (Chest X-rays): https://physionet.org/content/mimic-cxr/
+#### 1. Eletrocardiogramas (ECG)
+
+Tipo de exame: Eletrocardiogramas (ECG)  
+Número de imagens: 928 imagens  
+Formato: PNG / imagens de ECG  
+Fonte: Mendeley Data — ECG Images dataset of Cardiac Patients  
+Link da fonte: https://data.mendeley.com/datasets/gwbz3fsgp8/2  
+Licença: CC BY 4.0
+
+Para a modalidade de ECG, foi selecionada a base ECG Images dataset of Cardiac Patients, disponibilizada no Mendeley Data. Trabalhos recentes que utilizam essa base descrevem um total de 928 imagens de ECG, organizadas em quatro classes clínicas: condição normal, infarto do miocárdio, batimento anormal e histórico de infarto.
+
+Arquitetura de pastas (ECG):
+```
+imagens/
+└── ecg/
+    ├── normal/
+    ├── batimento_anormal/
+    ├── infarto/
+    └── historico_infarto/
+```
+#### 2. Raios-X torácicos
+
+Tipo de exame: Raio-X torácico  
+Número de imagens: 75.168 imagens consideradas nesta seleção  
+Formato: PNG / JPG  
+Fonte: Kaggle — NIH Chest X ray-14 (224 x 224, disease wise folder)  
+Link da fonte: https://www.kaggle.com/datasets/khanfashee/nih224folderwise-data  
+Licença: CC0: Public Domain
+
+Para a modalidade de raio-X torácico, foi escolhida a versão do dataset NIH Chest X-ray organizada em pastas por doença no Kaggle. Nesta etapa, foram selecionadas especificamente as classes No Finding, Cardiomegaly, Fibrosis, Hernia, Pleural Thickening, Pneumonia e Pneumothorax, totalizando 75.168 arquivos somados nessas pastas. A base original NIH informa 15 classes no total, sendo 14 doenças e a classe No Finding.
+
+Arquitetura de pastas (Raio-X):
+
+```
+imagens/
+└── rx/
+    ├── nenhuma_doenca_encontrada/
+    ├── cardiomegalia/
+    ├── fibrose/
+    ├── hernia/
+    ├── pleural/
+    ├── pneumonia/
+    └── pneumothorax/
+```
+#### 3. Angiogramas coronarianos
+
+Tipo de exame: Angiogramas coronarianos  
+Número de imagens: 6.126 imagens  
+Formato: PNG  
+Fonte: Mendeley Data — CADICA: a new dataset for coronary artery disease  
+Link da fonte: https://data.mendeley.com/datasets/p9bpx9ctcv/2  
+Licença: CC BY 4.0
+
+Para a modalidade de angiografia coronariana, foi escolhida a base CADICA, disponibilizada no Mendeley Data. Essa base é composta por exames de angiografia coronária invasiva de 42 pacientes e fornece os dados em uma estrutura com frames em PNG, arquivos .txt e metadados. Após a auditoria e organização da base, foram consideradas 6.126 imagens válidas no total, sendo 3.996 imagens classificadas como com lesão e 2.130 imagens classificadas como sem lesão, abrangendo 42 pacientes únicos.
+
+Arquitetura de pastas (Angiograma):
+
+```
+imagens/
+└── angiograma/
+    ├── com_lesao/
+    │   ├── p1/
+    │   ├── p2/
+    │   ├── p3/
+    │   └── ...
+    ├── sem_lesao/
+    │   ├── p1/
+    │   ├── p2/
+    │   ├── p3/
+    │   └── ...
+    └── labels.csv
+```
+
+### Resumo das Fontes Utilizadas
+
+| Tipo de exame | Base escolhida | Quantidade |
+|---------------|----------------|------------|
+| ECG | ECG Images dataset of Cardiac Patients (Mendeley Data) | 928 imagens |
+| Raio-X torácico | NIH Chest X ray-14 (Kaggle, pastas por doença) | 75.168 imagens selecionadas |
+| Angiograma coronariano | CADICA (Mendeley Data) | 6.126 imagens |
 
 ### Aplicações em Visão Computacional
 
@@ -164,7 +227,9 @@ Nesta etapa, reunimos **no mínimo 100 imagens** (`.jpg` ou `.png`) de exames ca
 
 ### Justificativa
 
-A Visão Computacional aplicada a exames cardiológicos tem potencial transformador para a saúde. Modelos de IA treinados com imagens médicas podem auxiliar na **detecção precoce de doenças**, na **padronização de laudos**, no **rastreamento populacional** e na **redução da sobrecarga de profissionais de saúde**. Em regiões com escassez de cardiologistas, um sistema de VC pode oferecer pré-diagnósticos que orientam o encaminhamento de pacientes, democratizando o acesso a cuidados especializados.
+A Visão Computacional aplicada a exames cardiológicos tem potencial transformador para a saúde. Modelos de IA treinados com imagens médicas podem auxiliar na detecção precoce de doenças, na padronização de laudos, no rastreamento populacional e na redução da sobrecarga de profissionais de saúde. Em regiões com escassez de cardiologistas, um sistema de VC pode oferecer pré-diagnósticos que orientam o encaminhamento de pacientes, democratizando o acesso a cuidados especializados.
+
+---
 
 ---
 
