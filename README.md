@@ -22,6 +22,8 @@ Este repositório corresponde à **Fase 1 — Batimentos de Dados**, na qual ass
 cardio-ia/
 ├── README.md                          # Este arquivo
 ├── LICENSE
+├── dataset/                              # Dasaset utilizado
+    ├── heart.csv                          
 ├── docs/                              # Textos médicos e imagens (Partes 2 e 3)
 │   ├── *.pdf                          # 10 artigos científicos (NLP)
 │   └── imagens/
