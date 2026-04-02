@@ -150,7 +150,7 @@ Dense(1, ativacao='sigmoid')  -->  Saida: probabilidade [0, 1]
 | EarlyStopping | patience=15 | Para o treinamento se a val_loss nao melhorar por 15 epochs consecutivas |
 | Class weight | Normal: 2.45, Anormal: 0.72 | Compensa o desbalanceamento entre as classes |
 
-O treinamento finalizou automaticamente na **epoch 32** (de 150 possiveis), pois o EarlyStopping detectou que a val_loss parou de melhorar.
+O treinamento finalizou automaticamente na **epoch 44** (de 150 possiveis), pois o EarlyStopping detectou que a val_loss parou de melhorar.
 
 ---
 
@@ -160,16 +160,16 @@ O treinamento finalizou automaticamente na **epoch 32** (de 150 possiveis), pois
 
 | Metrica | Valor |
 |---------|-------|
-| **Acuracia geral** | **81.18%** |
-| Loss no teste | 0.5121 |
+| **Acuracia geral** | **86.02%** |
+| Loss no teste | 0.3555 |
 
 ### Relatorio de Classificacao
 
 | Classe | Precision | Recall | F1-Score | Amostras |
 |--------|-----------|--------|----------|----------|
-| Normal | 0.81 | 0.51 | 0.62 | 57 |
-| Anormal | 0.81 | 0.95 | 0.87 | 129 |
-| **Macro avg** | **0.81** | **0.73** | **0.75** | **186** |
+| Normal | 0.86 | 0.65 | 0.74 | 57 |
+| Anormal | 0.86 | 0.95 | 0.90 | 129 |
+| **Macro avg** | **0.86** | **0.80** | **0.82** | **186** |
 
 O modelo identifica **95% dos casos anormais** (alto recall), o que e desejavel em contexto medico -- minimiza o risco de liberar pacientes com condicoes cardiacas nao detectadas.
 
