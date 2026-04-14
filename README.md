@@ -23,12 +23,13 @@ cardio-ia/
 ├── .gitignore
 ├── fase-1-dados/                      # Fundação: Governança e Curadoria
 │   ├── dataset/                       # heart.csv e links
-│   └── docs/                          # Artigos Científicos e imagens
+│   └── docs/                          # Artigos Científicos 
+│   └── imagens/                       # Imagens
 └── fase-2-diagnostico/                # Implementação: IA e Desenvolvimento
-    ├── 01-diagnostico-nlp/            # Parte 1: Extração de sintomas
-    ├── 02-classificador-risco/        # Parte 2: Machine Learning (TF-IDF)
-    ├── 03-ir-alem-portal/             # Ir Além 1: Front-end React
-    └── 04-ir-alem-visao/              # Ir Além 2: Rede Neural (Keras)
+    ├── parte 1/                # Parte 1: Extração de sintomas
+    ├── parte 2/                # Parte 2: Machine Learning (TF-IDF)
+    ├── ir-alem-1/             # Ir Além 1: Front-end React
+    └── ir-alem-2/              # Ir Além 2: Rede Neural (Keras)
 ```
 
 ## Governança de Dados e Viés
@@ -125,7 +126,7 @@ Reunimos imagens médicas de três exames cardiológicos fundamentais: ECG, Raio
 Nesta fase, o CardioIA evolui para a **automatização do diagnóstico**, utilizando os dados processados na fase anterior para criar módulos inteligentes de análise e triagem.
 
 ### 🎥 Demonstrações em Vídeo
-- 🎥 **Parte 1 e 2 (NLP & Machine Learning):** [Link do YouTube]
+- 🎥 **Parte 2 (NLP & Machine Learning):** [Link do YouTube]
 - 🎥 **Ir Além 1 (Portal React + Vite):** [Link do YouTube]
 - 🎥 **Ir Além 2 (Rede Neural Keras):** [Link do YouTube]
 
