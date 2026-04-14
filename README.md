@@ -1,3 +1,4 @@
+
 # CardioIA — A Nova Era da Cardiologia Inteligente
 
 ## Integrantes do Grupo
@@ -9,12 +10,9 @@
 | Matheus Cardoso Oliveira Lima | 565844 |
 | Silas Fernandes de Souza Fonseca | 564246 |
 
-
 ## Sobre o Projeto
 
 O **CardioIA** é um projeto acadêmico desenvolvido no curso de Inteligência Artificial da **FIAP**, seguindo a metodologia **PBL (Project Based Learning)**. O objetivo é construir uma plataforma digital inteligente que simule o ecossistema de uma cardiologia moderna, integrando dados clínicos, modelos de Machine Learning, Visão Computacional, IoT e agentes inteligentes.
-
-Este repositório corresponde à **Fase 1 — Batimentos de Dados**, na qual assumimos o papel de cientistas de dados hospitalares. O desafio central é **levantar, organizar e compreender dados cardiológicos** que, nas fases seguintes, alimentarão os módulos inteligentes da plataforma.
 
 ## Estrutura do Repositório
 
@@ -22,35 +20,15 @@ Este repositório corresponde à **Fase 1 — Batimentos de Dados**, na qual ass
 cardio-ia/
 ├── README.md                          # Este arquivo
 ├── LICENSE
-├── dataset/                              # Dasaset utilizado
-    ├── heart.csv                          
-├── docs/                              # Textos médicos e imagens (Partes 2 e 3)
-│   ├── *.pdf                          # 10 artigos científicos (NLP)
-│   └── imagens/
-│       ├── angiograma/
-│       │   ├── labels.csv
-│       │   ├── com_lesao/
-│       │   │   ├── p1/
-│       │   │   ├── p10/
-│       │   │   ├── p11/
-│       │   │   └── ...
-│       │   └── sem_lesao/
-│       │       ├── p1/
-│       │       ├── p10/
-│       │       ├── p16/
-│       │       └── ...
-│       ├── ecg/
-│       │   └── train/
-│       │       ├── batimento cardíaco anormal/
-│       │       ├── histórico de infarto do miocárdio/
-│       │       ├── infarto do miocárdio/
-│       │       └── normal/
-│       └── raio_x/
-│           └── train/
-│               ├── Fibrose/
-│               ├── Hernia/
-│               ├── Pleural/
-│               └── Pneumonia/
+├── .gitignore
+├── fase-1-dados/                      # Fundação: Governança e Curadoria
+│   ├── dataset/                       # heart.csv e links
+│   └── docs/                          # Artigos Científicos e imagens
+└── fase-2-diagnostico/                # Implementação: IA e Desenvolvimento
+    ├── 01-diagnostico-nlp/            # Parte 1: Extração de sintomas
+    ├── 02-classificador-risco/        # Parte 2: Machine Learning (TF-IDF)
+    ├── 03-ir-alem-portal/             # Ir Além 1: Front-end React
+    └── 04-ir-alem-visao/              # Ir Além 2: Rede Neural (Keras)
 ```
 
 ## Governança de Dados e Viés
@@ -64,25 +42,23 @@ Desde o início do projeto, adotamos princípios de **Governança de Dados** e a
 
 ---
 
-## Parte 1 — Dados Numéricos (IoT)
+## 📂 Fase 1 — Batimentos de Dados (Fundação)
 
-### Descrição
+### Parte 1 — Dados Numéricos (IoT)
 
+#### Descrição
 Nesta etapa, organizamos um conjunto de dados estruturado contendo variáveis clínicas fundamentais para a predição de risco cardiovascular. O foco é fornecer uma base sólida que represente o estado hemodinâmico e metabólico do paciente para alimentar modelos de Machine Learning.
 
-### Link para os Dados
+#### Link para os Dados
+> **Dataset completo:** [Acesse via Google Drive](https://drive.google.com/file/d/1zXrqTZplxLK3EwAQ9lgl6Osovujn9AGA/view?usp=sharing)
 
-> **Dataset completo:**([https://drive.google.com/file/d/1zXrqTZplxLK3EwAQ9lgl6Osovujn9AGA/view?usp=sharing](https://drive.google.com/file/d/1zXrqTZplxLK3EwAQ9lgl6Osovujn9AGA/view?usp=sharing))
+#### Origem dos Dados
+- **Fonte**: UCI Heart Disease Dataset - Cleveland Clinic Foundation.
+- **Tipo**: Dados Reais.
+- **Formato**: CSV (Comma-Separated Values).
+- **Número de registros**: 303 instâncias.
 
-### Origem dos Dados
-
-- **Origem dos Dados**
-- **Fonte: UCI Heart Disease Dataset - Cleveland Clinic Foundation**.
-- **Tipo: Dados Reais**.
-- **Formato: CSV (Comma-Separated Values).**
-- **Número de registros: 303 instâncias.**
-
-### Variáveis do Dataset
+#### Variáveis do Dataset
 
 | Variável | Descrição | Relevância Clínica |
 | --- | --- | --- |
@@ -99,179 +75,90 @@ Nesta etapa, organizamos um conjunto de dados estruturado contendo variáveis cl
 | **ST_Slope** | Inclinação de ST (Up, Flat, Down). | Reflete a gravidade da isquemia; inclinações descendentes sugerem pior prognóstico. |
 | **HeartDisease** | Presença de doença (1: Sim, 0: Não). | Variável alvo que permite o treinamento supervisionado de algoritmos de classificação. |
 
-### Justificativa para IA
-
+#### Justificativa para IA
 Essas variáveis foram selecionadas por serem preditores biológicos validados em larga escala. Do ponto de vista da Inteligência Artificial, variáveis como `oldpeak` (ECG) e `ca` (fluoroscopia) possuem alta importância (*feature importance*) para algoritmos de Random Forest e Redes Neurais, permitindo que o modelo aprenda a correlação entre sintomas subjetivos (dor no peito) e marcadores fisiológicos objetivos (pressão e frequência cardíaca) para antecipar diagnósticos de infarto com acurácia superior aos escores de risco manuais.
 
 ---
 
-## Parte 2 — Dados Textuais (NLP)
+### Parte 2 — Dados Textuais (NLP)
 
-### Descrição
-
+#### Descrição
 Nesta etapa, reunimos artigos científicos (`.pdf`) relacionados a doenças cardíacas, saúde pública cardiovascular, sintomas ou tratamentos. Os textos estão armazenados na subpasta `docs/` deste repositório.
 
-### Textos Coletados
+#### Textos Coletados
+- 10 Artigos Científicos (SciELO / BVS) abrangendo temas como: Infarto Agudo do Miocárdio, Miocardiopatia, Estresse Percebido e Hipertensão na Gestação.
 
-| Arquivo | Título / Descrição | Fonte |
-|---------|-------------------|-------|
-| `docs/incidencia_e_fatores_de_risco_associados_ao_infarto_agudo_do_miocardio_sem_obstrucao_coronariana.pdf` | Incidência e fatores de risco associados ao infarto agudo do miocárdio sem obstrução coronariana | SciELO |
-| `docs/miocardiopatia_nao_compactada_uma_visao_atual.pdf` | Miocardiopatia não compactada: uma visão atual | SciELO |
-| `docs/fatores_de_risco_cardiovascular_saberes_e_praticas_de_cuidado_de_mulheres_possibilidade_para_rever_habitos.pdf` | Fatores de risco cardiovascular: saberes e práticas de cuidado de mulheres — possibilidade para rever hábitos | BVS |
-| `docs/anti_inflamatorios_nao_esteroides_efeitos_cardiovasculares_cerebro_vasculares_e_renais.pdf` | Anti-inflamatórios não esteroides: efeitos cardiovasculares, cerebrovasculares e renais | SciELO |
-| `docs/prevalencia_e_caracterizacao_do_fenotipo_de_cardiomiopatia_hipertrofica_avaliado_por_ecocardiografia_em_uma_populacao_adulta_brasileira_o_estudo_elsa_brasil.pdf` | Prevalência e caracterização do fenótipo de cardiomiopatia hipertrófica avaliado por ecocardiografia em uma população adulta brasileira: o estudo ELSA-Brasil | SciELO |
-| `docs/hipertensao_arterial_sistemica_como_fator_determinante_para_desencadeamento_de_hemorragias_encefalicas_uma_analise_reflexiva.pdf` | Hipertensão arterial sistêmica como fator determinante para desencadeamento de hemorragias encefálicas: uma análise reflexiva | BVS |
-| `docs/associacao_do_estresse_percebido_e_qualidade_do_sono_de_hipertensos_resistentes_estudo_transversal.pdf` | Associação do estresse percebido e qualidade do sono de hipertensos resistentes: estudo transversal | SciELO |
-| `docs/fatores_associados_ao_risco_cardiovascular_em_pessoas_vivendo_com_hiv_aids.pdf` | Fatores associados ao risco cardiovascular em pessoas vivendo com HIV/AIDS | SciELO |
-| `docs/hipertensao_arterial_na_gestacao.pdf` | Hipertensão arterial na gestação | BVS |
-| `docs/doencas_cardiovasculares_em_trabalhadores_da_saude_fatores_de_risco_e_estrategias_preventivas_no_brasil.pdf` | Doenças cardiovasculares em trabalhadores da saúde: fatores de risco e estratégias preventivas no Brasil | BVS |
-
-### Fontes
-
-- **SciELO** (Scientific Electronic Library Online): https://scielo.org
-- **BVS** (Biblioteca Virtual em Saúde): https://bvsalud.org
-
-### Aplicações em NLP
-
-Os textos coletados poderão ser explorados por algoritmos de Processamento de Linguagem Natural das seguintes formas:
-
+#### Aplicações em NLP
 | Técnica de NLP | Descrição | Relevância para o CardioIA |
 |----------------|-----------|---------------------------|
-| **Extração de entidades (NER)** | Identificação automática de sintomas, medicamentos, diagnósticos e procedimentos mencionados nos textos. | Permite construir uma base de conhecimento estruturada a partir de textos médicos não estruturados, alimentando sistemas de apoio à decisão clínica. |
-| **Classificação de tópicos** | Categorização automática dos textos em temas como "fatores de risco", "tratamentos", "prevenção" e "diagnóstico". | Facilita a organização de grandes volumes de literatura médica, permitindo que o sistema direcione informações relevantes a cada módulo do CardioIA. |
-| **Análise de sentimentos** | Avaliação do tom e da gravidade das informações presentes em relatos clínicos ou literatura médica. | Pode ser aplicada a relatos de pacientes ou notas clínicas para identificar urgência ou severidade de quadros, priorizando atendimentos. |
-| **Sumarização automática** | Geração de resumos concisos a partir de artigos extensos. | Auxilia profissionais de saúde a obter rapidamente as informações mais relevantes de publicações científicas, otimizando o tempo clínico. |
-| **Extração de relações** | Identificação de relações entre entidades (ex.: "hipertensão *causa* insuficiência cardíaca"). | Permite mapear grafos de conhecimento médico que podem ser usados por agentes inteligentes para raciocínio clínico automatizado. |
-
-### Justificativa
-
-A análise de textos médicos via NLP é fundamental para o CardioIA porque grande parte do conhecimento clínico está registrada em formato textual — artigos, prontuários, diretrizes e relatos. Algoritmos de NLP permitem transformar esse conhecimento não estruturado em dados acionáveis, viabilizando funcionalidades como triagem automatizada baseada em sintomas relatados, assistentes virtuais de saúde e sistemas de alerta baseados em literatura atualizada.
+| **Extração de entidades (NER)** | Identificação automática de sintomas, medicamentos, diagnósticos. | Constrói base de conhecimento estruturada. |
+| **Classificação de tópicos** | Categorização automática em temas de saúde. | Organização de grandes volumes de literatura médica. |
+| **Análise de sentimentos** | Avaliação do tom e gravidade de relatos clínicos. | Priorização de atendimentos por urgência. |
+| **Sumarização automática** | Geração de resumos de artigos extensos. | Otimização do tempo clínico dos profissionais. |
+| **Extração de relações** | Identificação de causas e efeitos (ex: Hipertensão -> IC). | Mapeia grafos para raciocínio clínico automatizado. |
 
 ---
 
-## Parte 3 — Dados Visuais (Visão Computacional)
+### Parte 3 — Dados Visuais (Visão Computacional)
 
-### Descrição
+#### Descrição
+Reunimos imagens médicas de três exames cardiológicos fundamentais: ECG, Raios-X torácicos e Angiogramas coronarianos, organizados por tipo e classe clínica.
 
-Nesta etapa, reunimos imagens médicas de três tipos de exames cardiológicos, com foco em aplicações de Visão Computacional no projeto CardioIA:
-
-- Eletrocardiogramas (ECG)
-- Raios-X torácicos
-- Angiogramas coronarianos
-
-A proposta foi selecionar bases que realmente contêm imagens (.png, .jpg ou equivalentes), com acesso relativamente simples para uso acadêmico, e estruturar os arquivos em pastas organizadas por tipo de exame e por classe clínica sempre que possível.
-
-### Tipos de Exame Selecionados
-
-#### 1. Eletrocardiogramas (ECG)
-
-Tipo de exame: Eletrocardiogramas (ECG)  
-Número de imagens: 928 imagens  
-Formato: PNG / imagens de ECG  
-Fonte: Mendeley Data — ECG Images dataset of Cardiac Patients  
-Link da fonte: https://data.mendeley.com/datasets/gwbz3fsgp8/2  
-Licença: CC BY 4.0
-
-Para a modalidade de ECG, foi selecionada a base ECG Images dataset of Cardiac Patients, disponibilizada no Mendeley Data. Trabalhos recentes que utilizam essa base descrevem um total de 928 imagens de ECG, organizadas em quatro classes clínicas: condição normal, infarto do miocárdio, batimento anormal e histórico de infarto.
-
-Arquitetura de pastas (ECG):
-```
-imagens/
-└── ecg/
-    ├── normal/
-    ├── batimento_anormal/
-    ├── infarto/
-    └── historico_infarto/
-```
-#### 2. Raios-X torácicos
-
-Tipo de exame: Raio-X torácico  
-Número de imagens: 75.168 imagens consideradas nesta seleção  
-Formato: PNG / JPG  
-Fonte: Kaggle — NIH Chest X ray-14 (224 x 224, disease wise folder)  
-Link da fonte: https://www.kaggle.com/datasets/khanfashee/nih224folderwise-data  
-Licença: CC0: Public Domain
-
-Para a modalidade de raio-X torácico, foi escolhida a versão do dataset NIH Chest X-ray organizada em pastas por doença no Kaggle. Nesta etapa, foram selecionadas especificamente as classes No Finding, Cardiomegaly, Fibrosis, Hernia, Pleural Thickening, Pneumonia e Pneumothorax, totalizando 75.168 arquivos somados nessas pastas. A base original NIH informa 15 classes no total, sendo 14 doenças e a classe No Finding.
-
-Arquitetura de pastas (Raio-X):
-
-```
-imagens/
-└── rx/
-    ├── nenhuma_doenca_encontrada/
-    ├── cardiomegalia/
-    ├── fibrose/
-    ├── hernia/
-    ├── pleural/
-    ├── pneumonia/
-    └── pneumothorax/
-```
-#### 3. Angiogramas coronarianos
-
-Tipo de exame: Angiogramas coronarianos  
-Número de imagens: 6.126 imagens  
-Formato: PNG  
-Fonte: Mendeley Data — CADICA: a new dataset for coronary artery disease  
-Link da fonte: https://data.mendeley.com/datasets/p9bpx9ctcv/2  
-Licença: CC BY 4.0
-
-Para a modalidade de angiografia coronariana, foi escolhida a base CADICA, disponibilizada no Mendeley Data. Essa base é composta por exames de angiografia coronária invasiva de 42 pacientes e fornece os dados em uma estrutura com frames em PNG, arquivos .txt e metadados. Após a auditoria e organização da base, foram consideradas 6.126 imagens válidas no total, sendo 3.996 imagens classificadas como com lesão e 2.130 imagens classificadas como sem lesão, abrangendo 42 pacientes únicos.
-
-Arquitetura de pastas (Angiograma):
-
-```
-imagens/
-└── angiograma/
-    ├── com_lesao/
-    │   ├── p1/
-    │   ├── p2/
-    │   ├── p3/
-    │   └── ...
-    ├── sem_lesao/
-    │   ├── p1/
-    │   ├── p2/
-    │   ├── p3/
-    │   └── ...
-    └── labels.csv
-```
-
-### Resumo das Fontes Utilizadas
-
+#### Resumo das Fontes Utilizadas
 | Tipo de exame | Base escolhida | Quantidade |
 |---------------|----------------|------------|
 | ECG | ECG Images dataset of Cardiac Patients (Mendeley Data) | 928 imagens |
-| Raio-X torácico | NIH Chest X ray-14 (Kaggle, pastas por doença) | 75.168 imagens selecionadas |
-| Angiograma coronariano | CADICA (Mendeley Data) | 6.126 imagens |
+| Raio-X torácico | NIH Chest X ray-14 (Kaggle) | 75.168 imagens |
+| Angiogramas | CADICA (Mendeley Data) | 6.126 imagens |
 
-### Aplicações em Visão Computacional
-
+#### Aplicações em Visão Computacional
 | Técnica de VC | Descrição | Relevância para o CardioIA |
 |---------------|-----------|---------------------------|
-| **Detecção de padrões** | Algoritmos de deep learning (CNNs) podem aprender a reconhecer padrões visuais recorrentes em exames cardiológicos, como ritmos específicos em ECGs ou calcificações em raios-X. | Permite triagem automatizada de exames, identificando rapidamente casos que necessitam de atenção especializada e reduzindo o tempo de diagnóstico. |
-| **Identificação de bordas e segmentação** | Técnicas como filtros de Canny, U-Net e Mask R-CNN permitem delimitar estruturas anatômicas (câmaras cardíacas, vasos, contornos pulmonares) em imagens médicas. | A segmentação precisa de estruturas cardíacas é essencial para medições automatizadas (ex.: tamanho do coração em raio-X) e para alimentar modelos de diagnóstico. |
-| **Reconhecimento de anomalias** | Modelos treinados podem classificar imagens como "normal" ou "anormal", ou identificar anomalias específicas como cardiomegalia, arritmias ou estenoses. | Funciona como uma segunda opinião digital para o cardiologista, reduzindo erros diagnósticos e priorizando exames com achados suspeitos. |
-| **Classificação de imagens** | Redes neurais convolucionais podem categorizar exames em diferentes diagnósticos (ex.: fibrilação atrial vs. ritmo sinusal em ECGs). | Viabiliza diagnósticos automatizados em larga escala, especialmente útil em cenários de telemedicina e monitoramento remoto. |
-| **Detecção de objetos** | Localização de estruturas ou artefatos específicos dentro da imagem (ex.: localização de stents em angiogramas). | Auxilia no acompanhamento pós-procedimento e na identificação de complicações em exames de follow-up. |
-
-### Justificativa
-
-A Visão Computacional aplicada a exames cardiológicos tem potencial transformador para a saúde. Modelos de IA treinados com imagens médicas podem auxiliar na detecção precoce de doenças, na padronização de laudos, no rastreamento populacional e na redução da sobrecarga de profissionais de saúde. Em regiões com escassez de cardiologistas, um sistema de VC pode oferecer pré-diagnósticos que orientam o encaminhamento de pacientes, democratizando o acesso a cuidados especializados.
+| **Detecção de padrões** | CNNs reconhecendo ritmos ou calcificações. | Triagem automatizada de exames. |
+| **Segmentação** | Delimitar estruturas anatômicas (contornos cardíacos). | Medições automatizadas (ex: tamanho do coração). |
+| **Reconhecimento de anomalias** | Classificação em "normal" ou "anormal". | Segunda opinião digital para o cardiologista. |
 
 ---
+
+## 🧠 Fase 2 — Diagnóstico Automatizado (Implementação)
+
+Nesta fase, o CardioIA evolui para a **automatização do diagnóstico**, utilizando os dados processados na fase anterior para criar módulos inteligentes de análise e triagem.
+
+### 🎥 Demonstrações em Vídeo
+- 🎥 **Parte 1 e 2 (NLP & Machine Learning):** [Link do YouTube]
+- 🎥 **Ir Além 1 (Portal React + Vite):** [Link do YouTube]
+- 🎥 **Ir Além 2 (Rede Neural Keras):** [Link do YouTube]
+
+### Parte 1 — Extração de Sintomas e Ontologia
+Implementamos um sistema capaz de interpretar relatos médicos em texto e sugerir diagnósticos assistidos por IA.
+- **Relatos:** 10 frases completas simulando descrições de sintomas de pacientes.
+- **Mapa de Conhecimento:** Estrutura `.csv` associando sintomas (ex: "aperto no tórax") a possíveis diagnósticos (ex: Infarto).
+- **Código Python:** Leitura automatizada e cruzamento de informações para sugestão de diagnóstico.
+
+### Parte 2 — Classificador de Risco (Machine Learning)
+Desenvolvemos um classificador básico de texto para triagem clínica, categorizando relatos entre **Baixo Risco** e **Alto Risco**.
+- **Processamento:** Uso de **TF-IDF** para vetorização numérica das frases.
+- **Modelo:** Comparação entre modelos, com destaque para a **Regressão Logística**, que obteve **95% de acurácia** devido à estabilidade em datasets menores (100 linhas).
+- **Avaliação:** Uso de matriz de confusão e análise de pesos das palavras para garantir transparência nas predições de alto risco.
+
+### Ir Além 1 — Portal CardioIA (React + Vite)
+Interface responsiva simulando um portal hospitalar para visualização de dados e métricas de pacientes.
+- **Tecnologias:** React, Context API para autenticação, proteção de rotas e listagem via API simulada.
+
+### Ir Além 2 — Diagnóstico Visual (Rede Neural MLP)
+Aplicação de Rede Neural Artificial (Keras/TensorFlow) para classificação de imagens de eletrocardiograma.
+- **Dataset:** Heartbeat Dataset (Kaggle).
+- **Objetivo:** Diferenciar ritmos cardíacos normais de anomalias de forma automatizada.
 
 ---
 
 ## Referências
-
-<!-- Listar aqui todas as fontes utilizadas para obter os dados e as referências bibliográficas consultadas -->
-
-1. <!-- Preencher -->
-2. <!-- Preencher -->
-3. <!-- Preencher -->
+1. UCI Machine Learning Repository: Heart Disease Dataset.
+2. Mendeley Data: ECG Images e CADICA Dataset.
+3. Kaggle: NIH Chest X ray-14.
+4. SciELO & BVS: Literatura Médica Brasileira.
 
 ---
 
 ## Licença
-
 Este projeto é de caráter acadêmico, desenvolvido para fins educacionais no curso de Inteligência Artificial da FIAP.
