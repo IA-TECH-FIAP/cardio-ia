@@ -22,8 +22,13 @@ Este repositório corresponde à **Fase 1 — Batimentos de Dados**, na qual ass
 cardio-ia/
 ├── README.md                          # Este arquivo
 ├── LICENSE
-├── dataset/                              # Dasaset utilizado
-    ├── heart.csv                          
+├── assets/                            # Artefatos da Fase 2 — Parte 1 (NLP + diagnóstico)
+│   ├── mapa_conhecimento.csv          # Ontologia sintomas → doenças cardiovasculares
+│   └── sintomas_pacientes.txt         # Frases de relatos de pacientes (linguagem natural)
+├── src/                               # Código-fonte dos protótipos
+│   └── diagnostico_cardiovascular.py  # Script de apoio ao diagnóstico (Fase 2 — Parte 1)
+├── dataset/                           # Dataset utilizado
+│   └── heart.csv
 ├── docs/                              # Textos médicos e imagens (Partes 2 e 3)
 │   ├── *.pdf                          # 10 artigos científicos (NLP)
 │   └── imagens/
@@ -259,6 +264,86 @@ imagens/
 A Visão Computacional aplicada a exames cardiológicos tem potencial transformador para a saúde. Modelos de IA treinados com imagens médicas podem auxiliar na detecção precoce de doenças, na padronização de laudos, no rastreamento populacional e na redução da sobrecarga de profissionais de saúde. Em regiões com escassez de cardiologistas, um sistema de VC pode oferecer pré-diagnósticos que orientam o encaminhamento de pacientes, democratizando o acesso a cuidados especializados.
 
 ---
+
+## Fase 2 — Parte 1: Frases de Sintomas + Extração de Informações
+
+### Descrição
+
+Nesta etapa, avançamos do levantamento de dados para a **construção de um primeiro protótipo de apoio ao diagnóstico cardiovascular baseado em texto**. O objetivo é simular o processo pelo qual um sistema inteligente interpreta o relato de um paciente em linguagem natural e, a partir dele, identifica sintomas e sugere possíveis doenças cardiovasculares.
+
+O protótipo é composto por três artefatos principais, todos versionados neste repositório:
+
+- `assets/sintomas_pacientes.txt` — 10 frases em linguagem natural que simulam relatos de pacientes em uma triagem clínica.
+- `assets/mapa_conhecimento.csv` — mapa de conhecimento (ontologia simplificada) com 25 regras que associam conjuntos de sintomas a doenças cardiovasculares.
+- `src/diagnostico_cardiovascular.py` — script em Python que lê as frases, normaliza o texto, casa os sintomas contra o mapa de conhecimento e sugere os diagnósticos mais prováveis para cada paciente.
+
+### Estrutura dos Arquivos
+
+#### Frases de sintomas (`assets/sintomas_pacientes.txt`)
+
+Arquivo de texto com uma frase por linha, cada uma representando o relato livre de um paciente. As frases cobrem quadros clínicos diversos, como dor torácica típica, dispneia aos esforços, edema de membros inferiores, palpitações, crise hipertensiva e sinais sugestivos de infarto agudo do miocárdio.
+
+#### Mapa de conhecimento (`assets/mapa_conhecimento.csv`)
+
+Arquivo CSV estruturado com as colunas `Sintoma1`, `Sintoma2`, `Sintoma3` e `DoencaAssociada`. Cada linha define uma regra de associação entre um conjunto de sintomas e uma doença cardiovascular.
+
+Doenças contempladas no mapa:
+
+- Infarto Agudo do Miocárdio
+- Insuficiência Cardíaca / Insuficiência Cardíaca Congestiva
+- Hipertensão Arterial Sistêmica / Crônica
+- Crise Hipertensiva
+- Angina Pectoris / Angina Instável
+- Arritmia Cardíaca
+- Acidente Vascular Cerebral
+- Síndrome Coronariana Aguda
+- Doença Arterial Coronariana
+- Hemorragia Encefálica
+- Cardiomiopatia
+- Embolia Pulmonar
+
+O mapa foi construído com base em sinais e sintomas descritos nos artigos científicos coletados na Parte 2 (NLP), garantindo rastreabilidade clínica das regras.
+
+#### Script de diagnóstico (`src/diagnostico_cardiovascular.py`)
+
+Script em Python puro (sem dependências externas) que implementa o pipeline:
+
+1. **Carregamento do mapa de conhecimento** a partir do CSV, transformando cada linha em uma regra `{sintomas, doença}`.
+2. **Carregamento das frases** dos pacientes a partir do TXT.
+3. **Normalização textual** (minúsculas e remoção de acentos) para melhorar a correspondência entre o relato do paciente e os sintomas do mapa.
+4. **Identificação de sintomas** via busca por substring dos sintomas normalizados no texto do paciente.
+5. **Agrupamento por doença** e cálculo de uma pontuação de confiança baseada na quantidade de sintomas compatíveis.
+6. **Sugestão do diagnóstico mais provável** para cada paciente, listando também os diagnósticos alternativos e os sintomas identificados em cada caso.
+
+### Como Executar
+
+```bash
+python3 src/diagnostico_cardiovascular.py
+```
+
+O script pode ser executado a partir de qualquer diretório — os caminhos dos arquivos `assets/sintomas_pacientes.txt` e `assets/mapa_conhecimento.csv` são resolvidos em relação à localização do próprio script.
+
+### Exemplo de Saída
+
+```
+PACIENTE 1:
+Relato: "Há dois dias estou com uma dor forte no peito que piora quando faço
+esforço físico, sinto um aperto no tórax e falta de ar ao subir escadas."
+
+  Sintomas identificados e diagnósticos sugeridos:
+  → Infarto Agudo do Miocardio (confiança: 1 sintoma(s) compatível(is))
+    Sintomas encontrados: aperto no torax
+  → Insuficiencia Cardiaca Congestiva (confiança: 1 sintoma(s) compatível(is))
+    Sintomas encontrados: falta de ar
+  → Angina Instavel (confiança: 1 sintoma(s) compatível(is))
+    Sintomas encontrados: falta de ar
+
+  ★ DIAGNÓSTICO MAIS PROVÁVEL: Infarto Agudo do Miocardio
+```
+
+### Justificativa
+
+Esta Parte 1 da Fase 2 materializa a ponte entre **dados textuais (NLP)** e **apoio à decisão clínica**. Ao transformar relatos não estruturados em diagnósticos sugeridos por meio de um mapa de conhecimento explícito, o protótipo demonstra, em escala reduzida, o mesmo princípio por trás de sistemas mais sofisticados de triagem automatizada e raciocínio clínico. Apesar de educacional e não substituir avaliação médica, o componente estabelece a base sobre a qual técnicas mais avançadas (NER, embeddings, LLMs) serão aplicadas nas próximas entregas do CardioIA.
 
 ---
 
