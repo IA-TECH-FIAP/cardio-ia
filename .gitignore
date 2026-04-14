@@ -3,11 +3,15 @@
 
 # Python
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
 
 # Jupyter
 .ipynb_checkpoints/
+.trash/
 
-# Ambiente virtual
+# Ambiente virtual e Segredos
 venv/
-.env/
+.venv/
+.env          
+.venv/
