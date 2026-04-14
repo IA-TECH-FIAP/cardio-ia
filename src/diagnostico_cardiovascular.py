@@ -169,7 +169,9 @@ def executar_diagnostico(caminho_txt: str, caminho_csv: str) -> None:
 
 # === EXECUÇÃO PRINCIPAL ===
 if __name__ == "__main__":
-    CAMINHO_TXT = "sintomas_pacientes.txt"
-    CAMINHO_CSV = "mapa_conhecimento.csv"
+    import os
+    BASE_DIR = os.path.join(os.path.dirname(__file__), "..", "assets")
+    CAMINHO_TXT = os.path.join(BASE_DIR, "sintomas_pacientes.txt")
+    CAMINHO_CSV = os.path.join(BASE_DIR, "mapa_conhecimento.csv")
 
     executar_diagnostico(CAMINHO_TXT, CAMINHO_CSV)
