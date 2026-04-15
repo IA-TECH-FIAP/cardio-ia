@@ -126,9 +126,11 @@ Reunimos imagens médicas de três exames cardiológicos fundamentais: ECG, Raio
 Nesta fase, o CardioIA evolui para a **automatização do diagnóstico**, utilizando os dados processados na fase anterior para criar módulos inteligentes de análise e triagem.
 
 ### 🎥 Demonstrações em Vídeo
-- 🎥 **Parte 2 (NLP & Machine Learning):** [Link do YouTube]
-- 🎥 **Ir Além 1 (Portal React + Vite):** [Link do YouTube]
-- 🎥 **Ir Além 2 (Rede Neural Keras):** [Link do YouTube]
+- **<a href="https://youtu.be/GafngJPve2U?si=DLbu6hVNXe-nvj6-" target="_blank">Parte 2 (NLP & Machine Learning)</a>**
+- **<a href="https://youtu.be/AwryRguXP7o" target="_blank">Ir Além 1 (Portal React + Vite)</a>**
+- **<a href="https://youtu.be/RuGWCoK-E0c" target="_blank">Ir Além 2 (Rede Neural Keras)</a>**
+
+
 
 ### Parte 1 — Extração de Sintomas e Ontologia
 Implementamos um sistema capaz de interpretar relatos médicos em texto e sugerir diagnósticos assistidos por IA.
