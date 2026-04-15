@@ -30,6 +30,40 @@ cardio-ia/
     ├── parte 2/                # Parte 2: Machine Learning (TF-IDF)
     ├── ir-alem-1/             # Ir Além 1: Front-end React
     └── ir-alem-2/              # Ir Além 2: Rede Neural (Keras)
+├── assets/                            # Artefatos da Fase 2 — Parte 1 (NLP + diagnóstico)
+│   ├── mapa_conhecimento.csv          # Ontologia sintomas → doenças cardiovasculares
+│   └── sintomas_pacientes.txt         # Frases de relatos de pacientes (linguagem natural)
+├── src/                               # Código-fonte dos protótipos
+│   └── diagnostico_cardiovascular.py  # Script de apoio ao diagnóstico (Fase 2 — Parte 1)
+├── dataset/                           # Dataset utilizado
+│   └── heart.csv
+├── docs/                              # Textos médicos e imagens (Partes 2 e 3)
+│   ├── *.pdf                          # 10 artigos científicos (NLP)
+│   └── imagens/
+│       ├── angiograma/
+│       │   ├── labels.csv
+│       │   ├── com_lesao/
+│       │   │   ├── p1/
+│       │   │   ├── p10/
+│       │   │   ├── p11/
+│       │   │   └── ...
+│       │   └── sem_lesao/
+│       │       ├── p1/
+│       │       ├── p10/
+│       │       ├── p16/
+│       │       └── ...
+│       ├── ecg/
+│       │   └── train/
+│       │       ├── batimento cardíaco anormal/
+│       │       ├── histórico de infarto do miocárdio/
+│       │       ├── infarto do miocárdio/
+│       │       └── normal/
+│       └── raio_x/
+│           └── train/
+│               ├── Fibrose/
+│               ├── Hernia/
+│               ├── Pleural/
+│               └── Pneumonia/
 ```
 
 ## Governança de Dados e Viés
