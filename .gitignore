@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter
+.ipynb_checkpoints/
+.trash/
+
+# Ambiente virtual e Segredos
+venv/
+.venv/
+.env          
+.venv/
