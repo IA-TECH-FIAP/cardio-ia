@@ -42,10 +42,10 @@ CARDIO-IA/
 │   └── ir-alem-2/                     # IA Neuromórfica (FHN vs LR) em séries temporais
 │
 └── fase-4-visao-computacional/        # Fase 4: Deep Learning Avançado e Mobile
-├── parte1/                        # Treinamento da DenseNet121 vs CNN do Zero
-├── dataset_estruturado/           # Divisão de imagens de Raio-X por classe clínica
-├── ir-alem-1/                     # Módulo de Auditoria de Equidade com Fairlearn
-└── teste.ipynb                    # Notebook de homologação e testes de inferência
+    ├── parte1/                        # Treinamento da DenseNet121 vs CNN do Zero
+    ├── dataset_estruturado/           # Divisão de imagens de Raio-X por classe clínica
+    ├── ir-alem-1/                     # Módulo de Auditoria de Equidade com Fairlearn
+    └── teste.ipynb                    # Notebook de homologação e testes de inferência
 
 ```
 
