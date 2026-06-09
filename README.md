@@ -20,16 +20,56 @@ O **CardioIA** é um projeto acadêmico desenvolvido no curso de Inteligência A
 cardio-ia/
 ├── README.md                          # Este arquivo
 ├── LICENSE
-├── .gitignore
-├── fase-1-dados/                      # Fundação: Governança e Curadoria
-│   ├── dataset/                       # heart.csv e links
-│   └── docs/                          # Artigos Científicos 
-│   └── imagens/                       # Imagens
-└── fase-2-diagnostico/                # Implementação: IA e Desenvolvimento
-    ├── parte 1/                # Parte 1: Extração de sintomas
-    ├── parte 2/                # Parte 2: Machine Learning (TF-IDF)
-    ├── ir-alem-1/             # Ir Além 1: Front-end React
-    └── ir-alem-2/              # Ir Além 2: Rede Neural (Keras)
+├── assets/                            # Artefatos da Fase 2 — Parte 1 (NLP + diagnóstico)
+│   ├── mapa_conhecimento.csv          # Ontologia sintomas → doenças cardiovasculares
+│   └── sintomas_pacientes.txt         # Frases de relatos de pacientes (linguagem natural)
+├── src/                               # Código-fonte dos protótipos
+│   ├── diagnostico_cardiovascular.py  # Script de apoio ao diagnóstico (Fase 2 — Parte 1)
+│   └── fase_3/                        # Protótipo IoT (Fase 3)
+│       ├── parte_1_edge/              # ESP32 + Wokwi (Edge Computing)
+│       │   ├── sketch.ino             # Firmware com buffer circular
+│       │   ├── diagram.json           # Circuito Wokwi
+│       │   ├── wokwi.toml
+│       │   └── libraries.txt
+│       └── parte_2_nuvem/             # MQTT + Node-RED (Fog/Cloud)
+│           ├── sketch.ino             # Firmware publicando via MQTT
+│           ├── diagram.json
+│           ├── wokwi.toml
+│           ├── libraries.txt
+│           └── node_red_flow.json     # Flow do dashboard (importável)
+├── dataset/                           # Dataset utilizado
+│   └── heart.csv
+├── docs/                              # Textos médicos, imagens e relatórios
+│   ├── *.pdf                          # 10 artigos científicos (NLP)
+│   ├── fase_3/                        # Relatórios e prints da Fase 3
+│   │   ├── relatorio_parte_1_edge.md
+│   │   ├── relatorio_parte_2_nuvem.md
+│   │   └── imagens/                   # Capturas do Wokwi e Node-RED
+│   └── imagens/
+│       ├── angiograma/
+│       │   ├── labels.csv
+│       │   ├── com_lesao/
+│       │   │   ├── p1/
+│       │   │   ├── p10/
+│       │   │   ├── p11/
+│       │   │   └── ...
+│       │   └── sem_lesao/
+│       │       ├── p1/
+│       │       ├── p10/
+│       │       ├── p16/
+│       │       └── ...
+│       ├── ecg/
+│       │   └── train/
+│       │       ├── batimento cardíaco anormal/
+│       │       ├── histórico de infarto do miocárdio/
+│       │       ├── infarto do miocárdio/
+│       │       └── normal/
+│       └── raio_x/
+│           └── train/
+│               ├── Fibrose/
+│               ├── Hernia/
+│               ├── Pleural/
+│               └── Pneumonia/
 ```
 
 ## Governança de Dados e Viés
@@ -335,15 +375,197 @@ Os graficos abaixo mostram a evolucao da acuracia e da loss ao longo das epochs 
 
 ---
 
-#### Tecnologias Utilizadas
+## Fase 2 — Parte 1: Frases de Sintomas + Extração de Informações
 
-| Biblioteca | Versao | Uso |
-|------------|--------|-----|
-| TensorFlow / Keras | 2.x | Construcao, compilacao e treinamento da MLP |
-| OpenCV (cv2) | 4.x | Carregamento, redimensionamento e conversao de imagens |
-| scikit-learn | 1.x | Split treino/teste, class_weight, metricas de avaliacao |
-| NumPy | 2.x | Manipulacao de arrays e vetores |
-| Matplotlib / Seaborn | - | Graficos e visualizacoes |
+### Descrição
+
+Nesta etapa, avançamos do levantamento de dados para a **construção de um primeiro protótipo de apoio ao diagnóstico cardiovascular baseado em texto**. O objetivo é simular o processo pelo qual um sistema inteligente interpreta o relato de um paciente em linguagem natural e, a partir dele, identifica sintomas e sugere possíveis doenças cardiovasculares.
+
+O protótipo é composto por três artefatos principais, todos versionados neste repositório:
+
+- `assets/sintomas_pacientes.txt` — 10 frases em linguagem natural que simulam relatos de pacientes em uma triagem clínica.
+- `assets/mapa_conhecimento.csv` — mapa de conhecimento (ontologia simplificada) com 25 regras que associam conjuntos de sintomas a doenças cardiovasculares.
+- `src/diagnostico_cardiovascular.py` — script em Python que lê as frases, normaliza o texto, casa os sintomas contra o mapa de conhecimento e sugere os diagnósticos mais prováveis para cada paciente.
+
+### Estrutura dos Arquivos
+
+#### Frases de sintomas (`assets/sintomas_pacientes.txt`)
+
+Arquivo de texto com uma frase por linha, cada uma representando o relato livre de um paciente. As frases cobrem quadros clínicos diversos, como dor torácica típica, dispneia aos esforços, edema de membros inferiores, palpitações, crise hipertensiva e sinais sugestivos de infarto agudo do miocárdio.
+
+#### Mapa de conhecimento (`assets/mapa_conhecimento.csv`)
+
+Arquivo CSV estruturado com as colunas `Sintoma1`, `Sintoma2`, `Sintoma3` e `DoencaAssociada`. Cada linha define uma regra de associação entre um conjunto de sintomas e uma doença cardiovascular.
+
+Doenças contempladas no mapa:
+
+- Infarto Agudo do Miocárdio
+- Insuficiência Cardíaca / Insuficiência Cardíaca Congestiva
+- Hipertensão Arterial Sistêmica / Crônica
+- Crise Hipertensiva
+- Angina Pectoris / Angina Instável
+- Arritmia Cardíaca
+- Acidente Vascular Cerebral
+- Síndrome Coronariana Aguda
+- Doença Arterial Coronariana
+- Hemorragia Encefálica
+- Cardiomiopatia
+- Embolia Pulmonar
+
+O mapa foi construído com base em sinais e sintomas descritos nos artigos científicos coletados na Parte 2 (NLP), garantindo rastreabilidade clínica das regras.
+
+#### Script de diagnóstico (`src/diagnostico_cardiovascular.py`)
+
+Script em Python puro (sem dependências externas) que implementa o pipeline:
+
+1. **Carregamento do mapa de conhecimento** a partir do CSV, transformando cada linha em uma regra `{sintomas, doença}`.
+2. **Carregamento das frases** dos pacientes a partir do TXT.
+3. **Normalização textual** (minúsculas e remoção de acentos) para melhorar a correspondência entre o relato do paciente e os sintomas do mapa.
+4. **Identificação de sintomas** via busca por substring dos sintomas normalizados no texto do paciente.
+5. **Agrupamento por doença** e cálculo de uma pontuação de confiança baseada na quantidade de sintomas compatíveis.
+6. **Sugestão do diagnóstico mais provável** para cada paciente, listando também os diagnósticos alternativos e os sintomas identificados em cada caso.
+
+### Como Executar
+
+```bash
+python3 src/diagnostico_cardiovascular.py
+```
+
+O script pode ser executado a partir de qualquer diretório — os caminhos dos arquivos `assets/sintomas_pacientes.txt` e `assets/mapa_conhecimento.csv` são resolvidos em relação à localização do próprio script.
+
+### Exemplo de Saída
+
+```
+PACIENTE 1:
+Relato: "Há dois dias estou com uma dor forte no peito que piora quando faço
+esforço físico, sinto um aperto no tórax e falta de ar ao subir escadas."
+
+  Sintomas identificados e diagnósticos sugeridos:
+  → Infarto Agudo do Miocardio (confiança: 1 sintoma(s) compatível(is))
+    Sintomas encontrados: aperto no torax
+  → Insuficiencia Cardiaca Congestiva (confiança: 1 sintoma(s) compatível(is))
+    Sintomas encontrados: falta de ar
+  → Angina Instavel (confiança: 1 sintoma(s) compatível(is))
+    Sintomas encontrados: falta de ar
+
+  ★ DIAGNÓSTICO MAIS PROVÁVEL: Infarto Agudo do Miocardio
+```
+
+### Justificativa
+
+Esta Parte 1 da Fase 2 materializa a ponte entre **dados textuais (NLP)** e **apoio à decisão clínica**. Ao transformar relatos não estruturados em diagnósticos sugeridos por meio de um mapa de conhecimento explícito, o protótipo demonstra, em escala reduzida, o mesmo princípio por trás de sistemas mais sofisticados de triagem automatizada e raciocínio clínico. Apesar de educacional e não substituir avaliação médica, o componente estabelece a base sobre a qual técnicas mais avançadas (NER, embeddings, LLMs) serão aplicadas nas próximas entregas do CardioIA.
+
+---
+
+## Fase 3 — Parte 1: Edge Computing com ESP32
+
+### Descrição
+
+Nesta etapa, o CardioIA avança da análise de dados clínicos para a **captura contínua de sinais vitais em tempo real** com um wearable simulado em ESP32. O foco é demonstrar o papel do **Edge Computing** em aplicações críticas de saúde: o dispositivo lê os sensores periodicamente, armazena as leituras localmente em um buffer circular em RAM, decide localmente se há um alerta clínico e sincroniza o histórico acumulado quando a "conexão Wi-Fi" simulada está ativa.
+
+O protótipo é totalmente simulado no Wokwi e está disponível em:
+**https://wokwi.com/projects/463854286798211073**
+
+### Estrutura dos Arquivos
+
+- [`src/fase_3/parte_1_edge/sketch.ino`](src/fase_3/parte_1_edge/sketch.ino) — firmware em C++ comentado (~280 linhas), implementando buffer circular FIFO, leitura periódica e alertas locais.
+- [`src/fase_3/parte_1_edge/diagram.json`](src/fase_3/parte_1_edge/diagram.json) — descrição do circuito (ESP32 DevKit V1 + DHT22 + potenciômetro + LED + push-button).
+- [`src/fase_3/parte_1_edge/libraries.txt`](src/fase_3/parte_1_edge/libraries.txt) — dependências (`DHT sensor library`, `Adafruit Unified Sensor`).
+- [`docs/fase_3/relatorio_parte_1_edge.md`](docs/fase_3/relatorio_parte_1_edge.md) — relatório técnico explicando fluxo, dimensionamento do buffer e estratégia de resiliência.
+
+**Hardware simulado:**
+
+| Componente | Pino | Papel |
+|---|---|---|
+| DHT22 | GPIO 15 | Sensor obrigatório — temperatura + umidade |
+| Potenciômetro | GPIO 34 (ADC) | 2º sensor — simula BPM (40–180) |
+| LED | GPIO 2 | Indica estado online / sincronizando |
+| Push-button | GPIO 4 | Alterna o estado simulado de Wi-Fi |
+
+### Como Executar
+
+1. Abrir https://wokwi.com/projects/463854286798211073 no navegador.
+2. Clicar em **Start the simulation**.
+3. Pressionar o botão (GPIO 4) para alternar entre online (sincroniza buffer) e offline (acumula amostras).
+4. Girar o potenciômetro ou ajustar a temperatura do DHT22 no Wokwi para forçar alertas clínicos.
+
+Alternativa local: clonar os arquivos de `src/fase_3/parte_1_edge/` em um novo projeto Wokwi ou rodar via extensão **Wokwi for VSCode**.
+
+### Exemplo de Saída
+
+```
+=== CardioIA - Edge Node iniciando ===
+Buffer circular em RAM: capacidade = 100 amostras
+Estado inicial: OFFLINE (coletando dados localmente).
+
+[EDGE] t=24.0C  u=60.0%  bpm=110  | buffer=1/100  wifi=OFF
+[EDGE] t=24.0C  u=60.0%  bpm=115  | buffer=2/100  wifi=OFF
+[EDGE] t=24.0C  u=60.0%  bpm=140  *ALERTA*  | buffer=3/100  wifi=OFF
+
+>>> Wi-Fi alternado para: ONLINE
+[SYNC] Iniciando envio de 3 amostras para a nuvem...
+[CLOUD<-EDGE] ts=2050,temp=24.00,umid=60.00,bpm=110,alerta=0
+[CLOUD<-EDGE] ts=4055,temp=24.00,umid=60.00,bpm=115,alerta=0
+[CLOUD<-EDGE] ts=6061,temp=24.00,umid=60.00,bpm=140,alerta=1
+[SYNC] OK - 3 amostras enviadas e removidas do buffer local.
+```
+
+### Justificativa
+
+A Parte 1 da Fase 3 demonstra, na prática, **o papel do Edge Computing em aplicações críticas de saúde**: a decisão clínica de "isto é uma anomalia" é tomada localmente (sem latência de rede), e os dados acumulados durante quedas de conexão não são perdidos. O dimensionamento do buffer (100 amostras ≈ 3 min 20 s de autonomia offline) reflete um modelo de wearable realista — paciente entrando em elevador, banho, áreas com sombra de Wi-Fi — e a política FIFO de descarte do mais velho privilegia a relevância clínica dos dados mais recentes. O detalhamento técnico e a justificativa do buffer estão em [docs/fase_3/relatorio_parte_1_edge.md](docs/fase_3/relatorio_parte_1_edge.md).
+
+---
+
+## Fase 3 — Parte 2: Transmissão MQTT e Dashboard Node-RED
+
+### Descrição
+
+A Parte 2 completa o pipeline IoT do CardioIA conectando o nó Edge da Parte 1 a um broker **MQTT na nuvem** e visualizando os dados em um **dashboard Node-RED** com chart, gauge e indicador de alerta clínico. Toda a lógica de coleta e o buffer circular da Parte 1 são preservados — o que muda é o transporte: em vez de `Serial.println`, agora o ESP32 publica payloads JSON em tópicos hierárquicos que o dashboard assina via wildcard.
+
+### Estrutura dos Arquivos
+
+- [`src/fase_3/parte_2_nuvem/sketch.ino`](src/fase_3/parte_2_nuvem/sketch.ino) — firmware MQTT (fork da Parte 1) com `WiFi`, `PubSubClient`, `ArduinoJson` e Last Will Testament para detecção de queda.
+- [`src/fase_3/parte_2_nuvem/diagram.json`](src/fase_3/parte_2_nuvem/diagram.json) — mesmo circuito da Parte 1.
+- [`src/fase_3/parte_2_nuvem/libraries.txt`](src/fase_3/parte_2_nuvem/libraries.txt) — dependências.
+- [`src/fase_3/parte_2_nuvem/node_red_flow.json`](src/fase_3/parte_2_nuvem/node_red_flow.json) — flow exportado do Node-RED, importável diretamente.
+- [`docs/fase_3/relatorio_parte_2_nuvem.md`](docs/fase_3/relatorio_parte_2_nuvem.md) — relatório de 2+ páginas sobre arquitetura MQTT, dashboard e considerações de segurança/LGPD.
+
+**Broker MQTT:** `broker.hivemq.com:1883` (público, sem TLS — escolha didática; o relatório detalha a migração para HiveMQ Cloud com TLS em produção).
+
+**Tópicos publicados pelo ESP32:**
+- `cardioia/<deviceId>/sinais` — JSON `{ts, temp, umid, bpm, alert}` a cada 2 s.
+- `cardioia/<deviceId>/alerta` — replicado quando há violação de limiar clínico.
+- `cardioia/<deviceId>/status` — `"online"`/`"offline"` (retained, via LWT).
+
+### Como Executar
+
+```bash
+# 1. Subir Node-RED local
+docker run -it -p 1880:1880 nodered/node-red:latest
+
+# 2. http://localhost:1880 → Menu → Import → colar src/fase_3/parte_2_nuvem/node_red_flow.json → Deploy
+# 3. Abrir o dashboard em http://localhost:1880/ui
+
+# 4. Criar um projeto no Wokwi com os arquivos de src/fase_3/parte_2_nuvem/
+#    e iniciar a simulação.
+
+# 5. (Opcional) Validar payloads no broker via CLI:
+mosquitto_sub -h broker.hivemq.com -t 'cardioia/#' -v
+```
+
+### Dashboard
+
+O flow define um dashboard com:
+
+- **Chart BPM** (linha temporal, últimos 5 min, faixa 30–190).
+- **Gauge de Temperatura** (30–42 °C) com faixas verde (35–37,5 °C), amarela (37,5–38 °C) e vermelha (> 38 °C).
+- **Indicador de alerta clínico** — bloco HTML que muda de **verde "NORMAL"** para **vermelho "ALERTA"** com o motivo (taquicardia, bradicardia, febre ou hipotermia).
+
+Limiares clínicos: BPM > 120 (taquicardia), BPM < 50 (bradicardia), temperatura > 38 °C (febre), temperatura < 35 °C (hipotermia).
+
+### Justificativa
+
+A Parte 2 fecha o ciclo **captura (Edge) → transporte (MQTT) → visualização (Cloud) → alerta**, exatamente como propõe o enunciado do PDF. O uso de MQTT com hierarquia `cardioia/<deviceId>/<assunto>` e wildcard nas assinaturas torna a solução naturalmente escalável para uma frota de wearables, sem necessidade de retrabalho no dashboard. O relatório [docs/fase_3/relatorio_parte_2_nuvem.md](docs/fase_3/relatorio_parte_2_nuvem.md) inclui ainda uma seção sobre **segurança e LGPD**, detalhando as decisões que precisariam ser tomadas para levar este protótipo educacional a um sistema de produção que trate dados sensíveis de saúde.
 
 ---
 
