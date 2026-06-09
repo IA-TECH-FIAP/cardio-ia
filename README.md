@@ -1,4 +1,3 @@
-
 # CardioIA — A Nova Era da Cardiologia Inteligente
 
 ## Integrantes do Grupo
@@ -12,64 +11,42 @@
 
 ## Sobre o Projeto
 
-O **CardioIA** é um projeto acadêmico desenvolvido no curso de Inteligência Artificial da **FIAP**, seguindo a metodologia **PBL (Project Based Learning)**. O objetivo é construir uma plataforma digital inteligente que simule o ecossistema de uma cardiologia moderna, integrando dados clínicos, modelos de Machine Learning, Visão Computacional, IoT e agentes inteligentes.
+O **CardioIA** é um projeto acadêmico desenvolvido no curso de Inteligência Artificial da **FIAP**, seguindo a metodologia **PBL (Project Based Learning)**. O objetivo é construir uma plataforma digital inteligente que simule o ecossistema de uma cardiologia moderna, integrando dados clínicos estruturados, Processamento de Linguagem Natural (NLP), Edge Computing (IoT), Redes Neurais Convolucionais e Arquitetura Mobile para criar uma ferramenta robusta de suporte à decisão clínica e triagem radiológica ágil.
 
 ## Estrutura do Repositório
 
+
 ```
-cardio-ia/
-├── README.md                          # Este arquivo
-├── LICENSE
-├── assets/                            # Artefatos da Fase 2 — Parte 1 (NLP + diagnóstico)
-│   ├── mapa_conhecimento.csv          # Ontologia sintomas → doenças cardiovasculares
-│   └── sintomas_pacientes.txt         # Frases de relatos de pacientes (linguagem natural)
-├── src/                               # Código-fonte dos protótipos
-│   ├── diagnostico_cardiovascular.py  # Script de apoio ao diagnóstico (Fase 2 — Parte 1)
-│   └── fase_3/                        # Protótipo IoT (Fase 3)
-│       ├── parte_1_edge/              # ESP32 + Wokwi (Edge Computing)
-│       │   ├── sketch.ino             # Firmware com buffer circular
-│       │   ├── diagram.json           # Circuito Wokwi
-│       │   ├── wokwi.toml
-│       │   └── libraries.txt
-│       └── parte_2_nuvem/             # MQTT + Node-RED (Fog/Cloud)
-│           ├── sketch.ino             # Firmware publicando via MQTT
-│           ├── diagram.json
-│           ├── wokwi.toml
-│           ├── libraries.txt
-│           └── node_red_flow.json     # Flow do dashboard (importável)
-├── dataset/                           # Dataset utilizado
-│   └── heart.csv
-├── docs/                              # Textos médicos, imagens e relatórios
-│   ├── *.pdf                          # 10 artigos científicos (NLP)
-│   ├── fase_3/                        # Relatórios e prints da Fase 3
-│   │   ├── relatorio_parte_1_edge.md
-│   │   ├── relatorio_parte_2_nuvem.md
-│   │   └── imagens/                   # Capturas do Wokwi e Node-RED
-│   └── imagens/
-│       ├── angiograma/
-│       │   ├── labels.csv
-│       │   ├── com_lesao/
-│       │   │   ├── p1/
-│       │   │   ├── p10/
-│       │   │   ├── p11/
-│       │   │   └── ...
-│       │   └── sem_lesao/
-│       │       ├── p1/
-│       │       ├── p10/
-│       │       ├── p16/
-│       │       └── ...
-│       ├── ecg/
-│       │   └── train/
-│       │       ├── batimento cardíaco anormal/
-│       │       ├── histórico de infarto do miocárdio/
-│       │       ├── infarto do miocárdio/
-│       │       └── normal/
-│       └── raio_x/
-│           └── train/
-│               ├── Fibrose/
-│               ├── Hernia/
-│               ├── Pleural/
-│               └── Pneumonia/
+
+CARDIO-IA/
+├── .gitignore                         # Arquivos e pastas ignorados pelo Git
+├── LICENSE                            # Licença de uso do repositório
+├── README.md                          # Documentação principal do projeto
+├── diagnostico_cardiovascular.py      # Script de triagem clínica por mapeamento de sintomas
+│
+├── fase-1-dados/                      # Fase 1: Governança, Curadoria e IoT
+│   ├── dataset/                       # heart.csv e documentação de fontes
+│   ├── docs/                          # Artigos científicos base para NLP
+│   └── imagens/                       # Amostras iniciais de exames visuais
+│
+├── fase-2-diagnostico/                # Fase 2: IA, NLP e ML Tradicional
+│   ├── parte 1/                       # Extração estruturada de sintomas
+│   ├── parte 2/                       # Vetorização TF-IDF e Regressão Logística
+│   └── ir-alem-2/                     # Rede Neural MLP aplicada a imagens de ECG
+│
+├── fase-3-iot/                        # Fase 3: Conectividade, Edge e Séries Temporais
+│   ├── imagens/                       # Gráficos e dashboards gerados no Node-RED
+│   ├── parte_1_edge/                  # Firmware C++ para ESP32 com Buffer FIFO Circular
+│   ├── parte_2_nuvem/                 # Integração MQTT e fluxos de automação RPA
+│   ├── ir-alem-1/                     # Painéis e regras de monitoramento contínuo
+│   └── ir-alem-2/                     # IA Neuromórfica (FHN vs LR) em séries temporais
+│
+└── fase-4-visao-computacional/        # Fase 4: Deep Learning Avançado e Mobile
+├── parte1/                        # Treinamento da DenseNet121 vs CNN do Zero
+├── dataset_estruturado/           # Divisão de imagens de Raio-X por classe clínica
+├── ir-alem-1/                     # Módulo de Auditoria de Equidade com Fairlearn
+└── teste.ipynb                    # Notebook de homologação e testes de inferência
+
 ```
 
 ## Governança de Dados e Viés
@@ -124,7 +101,7 @@ Essas variáveis foram selecionadas por serem preditores biológicos validados e
 ### Parte 2 — Dados Textuais (NLP)
 
 #### Descrição
-Nesta etapa, reunimos artigos científicos (`.pdf`) relacionados a doenças cardíacas, saúde pública cardiovascular, sintomas ou tratamentos. Os textos estão armazenados na subpasta `docs/` deste repositório.
+Nesta etapa, reunimos artigos científicos (`.pdf`) relacionados a doenças cardíacas, saúde pública cardiovascular, sintomas ou treatments. Os textos estão armazenados na subpasta `docs/` deste repositório.
 
 #### Textos Coletados
 - 10 Artigos Científicos (SciELO / BVS) abrangendo temas como: Infarto Agudo do Miocárdio, Miocardiopatia, Estresse Percebido e Hipertensão na Gestação.
@@ -170,8 +147,6 @@ Nesta fase, o CardioIA evolui para a **automatização do diagnóstico**, utiliz
 - **<a href="https://youtu.be/AwryRguXP7o" target="_blank">Ir Além 1 (Portal React + Vite)</a>**
 - **<a href="https://youtu.be/RuGWCoK-E0c" target="_blank">Ir Além 2 (Rede Neural Keras)</a>**
 
-
-
 ### Parte 1 — Extração de Sintomas e Ontologia
 Implementamos um sistema capaz de interpretar relatos médicos em texto e sugerir diagnósticos assistidos por IA.
 - **Relatos:** 10 frases completas simulando descrições de sintomas de pacientes.
@@ -186,422 +161,143 @@ Desenvolvemos um classificador básico de texto para triagem clínica, categoriz
 
 ### Ir Além 1 — Portal CardioIA (React + Vite)
 Interface responsiva simulando um portal hospitalar para visualização de dados e métricas de pacientes.
-- **Tecnologias:** React, Context API para autenticação, proteção de rotas e listagem via API simulada.
+- **Tecnologias:** React, Context API para autenticação, protection de rotas e listagem via API simulada.
 
-### Ir Alem 2 -- Diagnostico Visual em Cardiologia com Rede Neural
+### Ir Além 2 — Diagnóstico Visual com Rede Neural MLP (ECG)
+Esta atividade aplica uma **Rede Neural Artificial do tipo MLP (Perceptron Multicamadas)** no TensorFlow/Keras para classificar imagens de eletrocardiogramas (ECG) em duas categorias: **normal** e **anormal**. 
 
-#### Sobre a Atividade
-
-Esta atividade aplica uma **Rede Neural Artificial do tipo MLP (Perceptron Multicamadas)** para classificar imagens de eletrocardiogramas (ECG) em duas categorias: **normal** e **anormal**. O objetivo e demonstrar como a Inteligencia Artificial pode auxiliar na triagem automatizada de pacientes cardiologicos por meio de diagnostico visual.
-
----
-
-#### Dataset Utilizado
-
-- **Fonte:** ECG Images dataset of Cardiac Patients -- Mendeley Data
-- **Link:** https://data.mendeley.com/datasets/gwbz3fsgp8/2
-- **Licenca:** CC BY 4.0
-- **Total:** 928 imagens JPG (2213x1572 pixels, coloridas)
-
-#### Classes Originais
-
-| Classe | Quantidade |
-|--------|------------|
-| Normal | 284 |
-| Batimento cardiaco anormal | 233 |
-| Infarto do miocardio | 239 |
-| Historico de infarto do miocardio | 172 |
-
-#### Agrupamento Binario
-
-Para a classificacao binaria exigida pela atividade, as classes foram reorganizadas:
-
-| Classe | Label | Quantidade | Composicao |
+#### Agrupamento Binário das Classes (Mendeley Data)
+| Classe | Label | Quantidade | Composição |
 |--------|-------|------------|------------|
 | Normal | 0 | 284 | Classe "normal" original |
-| Anormal | 1 | 644 | Batimento anormal + Infarto + Historico de infarto |
+| Anormal | 1 | 644 | Batimento anormal + Infarto + Histórico de infarto |
 
-![Distribuicao das Classes](/fase-2-diagnostico/ir-alem-2/imagens/distribuicao_classes.png)
+#### Metodologia de Pré-processamento
+1. **Grayscale:** Conversão de 3 canais (RGB) para 1 canal. Reduz features em 3x.
+2. **Resize:** Redimensionamento para 64x64 pixels (Vetor final de 4.096 entradas unidimensionais pós-Flatten).
+3. **Normalização:** Conversão dos tons de pixels de [0, 255] para a escala flutuante [0, 1].
+4. **Tratamento de Desbalanceamento:** Aplicação do parâmetro `class_weight` configurando fator de 3.4x mais peso na classe Normal.
 
----
-
-#### Estrutura de Pastas
-
-```
-cardio-ia-fase-2-parte-1/
-├── docs/
-│   └── imagens/
-│       └── ecg/
-│           └── train/
-│               ├── normal/                              # 284 imagens
-│               ├── batimento cardiaco anormal/           # 233 imagens
-│               ├── infarto do miocardio/                 # 239 imagens
-│               └── historico de infarto do miocardio/    # 172 imagens
-│
-├── ir_alem_2/
-│   ├── IR_ALEM_2.md                                     # Este arquivo
-│   ├── ecg_diagnostico_visual.ipynb                     # Notebook com o codigo completo
-│   └── imagens/                                         # Graficos e resultados visuais
-│       ├── distribuicao_classes.png
-│       ├── exemplos_ecg.png
-│       ├── preprocessamento.png
-│       ├── matriz_confusao.png
-│       └── curvas_aprendizado.png
-│
-└── README.md
-```
+#### Resultados Obtidos (MLP)
+- **Acurácia Geral:** **86.02%**
+- **Recall da Classe Anormal:** **95%** (Métrica excelente para contexto médico, minimizando falsos negativos).
 
 ---
 
-#### Metodologia
+## ⚡ Fase 3 — Conectividade: Edge Computing, Nuvem e Séries Temporais
 
-#### 1. Exemplos de Imagens do Dataset
+### Parte 1 — Edge Computing com ESP32
+Demonstração prática de captura contínua de sinais vitais na borda utilizando microcontrolador ESP32 simulado no Wokwi.
+- **Sensores:** Captura de temperatura corporal via DHT22 e pulsação analógica (BPM) via potenciômetro (escala de 40 a 180).
+* **Buffer FIFO Circular:** Implementação de uma fila circular estruturada em RAM capaz de acumular até 100 amostras localmente. Caso ocorram quedas na rede Wi-Fi, os dados históricos de saúde permanecem salvos localmente e são sincronizados de uma só vez assim que a conexão volta a ficar online.
+- **Link do Protótipo:** [Acesse a simulação ativa no Wokwi](https://wokwi.com/projects/463854286798211073)
 
-Abaixo, exemplos reais de ECGs do dataset utilizado. A linha superior mostra ECGs normais e a inferior mostra ECGs anormais:
+### Parte 2 — Transmissão MQTT e Dashboard Node-RED
+Fechamento do fluxo de transporte de telemetria utilizando o broker de mensageria pública `broker.hivemq.com:1883`. O ESP32 empacota as leituras em JSON e publica de forma assíncrona usando tópicos com suporte a *Last Will and Testament* (LWT) para detecção de quedas de nós.
+- **Visualização Cloud:** Criação de fluxos e painéis gráficos em **Node-RED** contendo charts de linhas para batimentos, gauges para temperatura e blocos de alteração visual de status clínico de emergência.
 
-![Exemplos de ECG Normal e Anormal](/fase-2-diagnostico/ir-alem-2/imagens/exemplos_ecg.png)
+### ir-alem-1 — Automação de Alertas e Regras de Monitoramento (RPA)
+Agente de escuta em Python (`monitor_vitals.py`) que roda em segundo plano consumindo as filas MQTT da nuvem. Quando o motor intercepta uma violação dos limiares clínicos seguros, ele dispara um fluxo autônomo de RPA via protocolo SMTP autenticado de forma segura para notificar a equipe médica por e-mail imediatamente.
+- **Limites Clínicos Estritos:** BPM > 100 (Taquicardia) | Temperatura > 37.8°C (Estado Febril) | Movimentação = 0 (Alerta de Queda/Inércia).
 
-#### 2. Pre-processamento das Imagens
+### ir-alem-2 — IA Avançada em Séries Temporais de Saúde
+Pesquisa científica de classificação de batidas cardíacas utilizando o dataset univariado **ECG5000** (5.000 amostras × 140 timesteps), confrontando dois paradigmas:
+1. **Regressão Logística (Estatística Tradicional):** Modelo linear atemporal que trata os 140 pontos sequenciais de forma independente no espaço.
+2. **Modelo FitzHugh–Nagumo + Linear (IA Neuromórfica):** Modelo bio-inspirado rodando no simulador **Brian2**. O sinal elétrico do ECG é injetado como corrente em equações diferenciais de membrana celular. Do comportamento dos disparos elétricos (*spikes*), são extraídas apenas 8 features biofísicas de alta densidade.
 
-As imagens originais (2213x1572, RGB) passam por quatro transformacoes antes de alimentar a rede neural:
+#### Tabela Comparativa de Paradigmas (ECG5000)
+| Métrica | Regressão Logística (140 Features) | FHN + Classificador (8 Features) |
+| :--- | :---: | :---: |
+| **Acurácia** | **99,30%** | 93,90% |
+| **F1-Score** | **0,9916** | 0,9248 |
+| **ROC AUC** | **0,9969** | 0,9759 |
+| **Parâmetros Aprendíveis** | 140 | **8 (17,5x mais leve)** |
+| **Tempo de Treinamento** | 14,4 ms | **3,5 ms (Superior)** |
 
-| Etapa | Transformacao | Justificativa |
-|-------|---------------|---------------|
-| Grayscale | 3 canais (RGB) para 1 canal | A informacao diagnostica do ECG esta na forma da onda, nao nas cores. Reduz features em 3x |
-| Resize | 64x64 pixels | Reduz dimensionalidade para 4.096 pixels. Tamanho escolhido para manter uma relacao saudavel entre features e amostras |
-| Flatten | Matriz 64x64 para vetor de 4.096 | MLP exige entrada unidimensional (diferente de CNNs que aceitam matrizes) |
-| Normalizacao | Pixels de [0, 255] para [0, 1] | Estabiliza o treinamento e acelera a convergencia do otimizador |
-
-O resultado visual do pre-processamento:
-
-![Pre-processamento: Original vs Processada](/fase-2-diagnostico/ir-alem-2/imagens/preprocessamento.png)
-
-#### 3. Divisao dos Dados
-
-- **80% para treino** (742 imagens)
-- **20% para teste** (186 imagens)
-- Divisao **estratificada** para manter a proporcao normal/anormal em ambos os conjuntos
-
-#### 4. Tratamento do Desbalanceamento
-
-O dataset possui ~30% Normal vs ~70% Anormal. Sem tratamento, o modelo tende a classificar tudo como a classe majoritaria (Anormal). Para resolver isso, utilizamos **class_weight** com fator 3.4x mais peso na classe Normal, forcando o modelo a penalizar mais os erros na classe minoritaria.
-
-#### 5. Arquitetura da Rede Neural (MLP)
-
-```
-Camada de Entrada: 4.096 neuronios (imagem achatada)
-        |
-Dense(256, ativacao='relu')
-BatchNormalization()
-Dropout(0.3)
-        |
-Dense(128, ativacao='relu')
-BatchNormalization()
-Dropout(0.3)
-        |
-Dense(64, ativacao='relu')
-Dropout(0.2)
-        |
-Dense(1, ativacao='sigmoid')  -->  Saida: probabilidade [0, 1]
-```
-
-**Resumo do modelo (Keras):**
-
-| Camada | Output Shape | Parametros |
-|--------|-------------|------------|
-| Dense (256, ReLU) | (None, 256) | 1.048.832 |
-| BatchNormalization | (None, 256) | 1.024 |
-| Dropout (0.3) | (None, 256) | 0 |
-| Dense (128, ReLU) | (None, 128) | 32.896 |
-| BatchNormalization | (None, 128) | 512 |
-| Dropout (0.3) | (None, 128) | 0 |
-| Dense (64, ReLU) | (None, 64) | 8.256 |
-| Dropout (0.2) | (None, 64) | 0 |
-| Dense (1, Sigmoid) | (None, 1) | 65 |
-| **Total** | | **1.091.585** |
-
-**Decisoes de arquitetura:**
-
-- **ReLU (Rectified Linear Unit):** funcao de ativacao que resolve o problema do vanishing gradient e permite treinamento mais rapido que sigmoid/tanh nas camadas ocultas
-- **BatchNormalization:** normaliza as ativacoes entre camadas, estabilizando e acelerando o treinamento
-- **Dropout (20-30%):** tecnica de regularizacao que "desliga" neuronios aleatoriamente durante o treino -- essencial com dataset pequeno (928 imagens) para evitar overfitting
-- **Sigmoid na saida:** retorna um valor entre 0 e 1, interpretado como probabilidade de ser "anormal"
-- **Rede compacta (256-128-64):** arquitetura dimensionada para o tamanho do dataset, evitando excesso de parametros
-
-#### 6. Treinamento
-
-| Parametro | Valor | Justificativa |
-|-----------|-------|---------------|
-| Otimizador | Adam (lr=0.0003) | Taxa de aprendizado reduzida para convergencia mais estavel com dataset pequeno |
-| Funcao de perda | Binary Crossentropy | Padrao para classificacao binaria |
-| Metrica | Accuracy | Exigida pelo enunciado |
-| Epochs | 150 (max) | Limite superior, controlado pelo EarlyStopping |
-| Batch size | 16 | Batches menores para melhor generalizacao com poucas amostras |
-| EarlyStopping | patience=15 | Para o treinamento se a val_loss nao melhorar por 15 epochs consecutivas |
-| Class weight | Normal: 2.45, Anormal: 0.72 | Compensa o desbalanceamento entre as classes |
-
-O treinamento finalizou automaticamente na **epoch 44** (de 150 possiveis), pois o EarlyStopping detectou que a val_loss parou de melhorar.
+* **Conclusão:** A Regressão Logística domina em performance matemática bruta, mas o modelo neuromórfico FHN comprime drasticamente a necessidade de features (17,5x menos), preserva a biologia da série temporal e consome menos energia para rodar em chips físicos de borda.
 
 ---
 
-#### Resultados Obtidos
+## 🔬 Fase 4 — Triagem Radiológica com Deep Learning Avançado e Arquitetura Mobile
 
-#### Acuracia
+A quarta fase consolida o ecossistema do CardioIA, transicionando modelos computacionais complexos de Visão Computacional de ambientes de pesquisa para um ecossistema completo de produção mobile.
 
-| Metrica | Valor |
-|---------|-------|
-| **Acuracia geral** | **86.02%** |
-| Loss no teste | 0.3555 |
+### parte1 / Modelagem de Visão Computacional Avançada
+Desenvolvimento e validação de redes profundas aplicadas na classificação multiclasse de imagens de Raio-X de tórax para identificar três condições específicas: *Cardiomegalia*, *Infiltrado Pulmonar* e pulmão *Saudável*. Foram avaliados dois pipelines no TensorFlow:
+* **CNN Customizada (Do Zero):** Rede sequencial com 3 blocos convolucionais, max-pooling, regularização por dropout e normalização em lote.
+* **Transfer Learning (DenseNet121):** Arquitetura profunda pré-treinada na ImageNet acoplada a uma camada de classificação customizada para o contexto médico.
+* **Resultado Clínico:** Ambas as arquiteturas alcançaram **71% de Acurácia Global** no conjunto de testes oculto (564 imagens). No entanto, a **DenseNet121 provou-se clinicamente superior** ao obter um F1-Score de **0.24** (com 17% de Recall) na classe complexa de Infiltrado Pulmonar, superando os 0.08 obtidos pela CNN do zero. As conexões diretas dos seus *Dense Blocks* propagam gradientes sem atenuação, retendo texturas e opacidades milimétricas dos pixels radiológicos.
 
-#### Relatorio de Classificacao
+### ir-alem-1 / Auditoria de Equidade (Fairness) e Governança de IA
+Como prática obrigatória de IA responsável, o grupo submeteu o modelo final a uma rigorosa auditoria demográfica e estatística utilizando a biblioteca **Fairlearn**:
+* **Disparidade de Gênero Detectada:** A avaliação segmentada via `MetricFrame` revelou uma **diferença crítica de 25% no Recall** em desfavor do subgrupo demográfico feminino, o que induziria taxas inaceitáveis de falsos negativos em mulheres em um cenário hospitalar.
+* **Escassez de Dados:** A classe *Cardiomegalia* registrou métricas zeradas devido ao desbalanceamento extremo na base de testes ocultos (apenas 30 imagens contra mais de 410 do grupo saudável).
+* **Veredito:** O modelo foi categorizado como **Retido por Compliance de Governança**. O plano de mitigação estruturado para a próxima versão prevê a aplicação de técnicas de *Oversampling* em disco, ajuste dinâmico do limiar médico de decisão e explicabilidade por mapas de calor via **Grad-CAM**.
 
-| Classe | Precision | Recall | F1-Score | Amostras |
-|--------|-----------|--------|----------|----------|
-| Normal | 0.86 | 0.65 | 0.74 | 57 |
-| Anormal | 0.86 | 0.95 | 0.90 | 129 |
-| **Macro avg** | **0.86** | **0.80** | **0.82** | **186** |
+### Arquitetura de Produção e Deploy (Backend & Mobile)
+Para disponibilizar as predições da DenseNet121 na ponta da linha médica, a arquitetura foi desmembrada em dois componentes funcionais ativos:
 
-O modelo identifica **95% dos casos anormais** (alto recall), o que e desejavel em contexto medico -- minimiza o risco de liberar pacientes com condicoes cardiacas nao detectadas.
+#### 1. Servidor de Inferência (API Flask)
+Hospedado no arquivo `api_cardio_ia.py`, este microsserviço em Python é responsável por isolar a execução do modelo e servir os dados na rede local:
+* Carrega a estrutura do modelo em disco (`.h5`) mitigando incompatibilidades através do isolamento de compilação (`compile=False`).
+* Disponibiliza o endpoint `/predict` via requisições POST assíncronas habilitadas para conexões externas via `Flask-CORS`.
+* Executa o pré-processamento rigoroso dos bytes de imagem recebidos (redimensionamento para $256 \times 256$ e normalização flutuante via `tf.keras.applications.densenet.preprocess_input`).
 
-#### Matriz de Confusao
-
-![Matriz de Confusao](/fase-2-diagnostico/ir-alem-2/imagens/matriz_confusao.png)
-
-#### Curvas de Aprendizado
-
-Os graficos abaixo mostram a evolucao da acuracia e da loss ao longo das epochs de treinamento. A comparacao entre treino e validacao permite identificar se houve overfitting.
-
-![Curvas de Aprendizado - Acuracia e Loss](/fase-2-diagnostico/ir-alem-2/imagens/curvas_aprendizado.png)
+#### 2. Aplicativo Cliente (React Native + Expo Go)
+Controlado pelo arquivo central `App.js` e integrado ao serviço de comunicação `src/services/api.js`:
+* Apresenta uma interface limpa e responsiva voltada para profissionais de saúde.
+* Gerencia permissões nativas de acesso à galeria de imagens do smartphone.
+* Realiza o envio assíncrono das imagens através de objetos estruturados do tipo `FormData`.
+* Consome o retorno JSON do servidor Flask e exibe na tela o diagnóstico preditivo acompanhado de sua respectiva taxa percentual de confiança, tratando eventuais falhas de forma segura.
 
 ---
 
-## Fase 2 — Parte 1: Frases de Sintomas + Extração de Informações
+## 🛠️ Como Executar a Fase 4 (Passo a Passo)
 
-### Descrição
+### 1. Inicializando o Backend (API Flask)
+Abra o terminal do seu sistema operacional na pasta do projeto e execute os comandos para instalar as dependências e iniciar o servidor de inferência:
+```bash
+pip install flask flask-cors tensorflow pillow numpy
+python fase-4-visao-computacional/api_cardio_ia.py
 
-Nesta etapa, avançamos do levantamento de dados para a **construção de um primeiro protótipo de apoio ao diagnóstico cardiovascular baseado em texto**. O objetivo é simular o processo pelo qual um sistema inteligente interpreta o relato de um paciente em linguagem natural e, a partir dele, identifica sintomas e sugere possíveis doenças cardiovasculares.
+```
 
-O protótipo é composto por três artefatos principais, todos versionados neste repositório:
+*Mantenha essa janela do terminal aberta. O log deve confirmar que o servidor está escutando requisições na porta 5000.*
 
-- `assets/sintomas_pacientes.txt` — 10 frases em linguagem natural que simulam relatos de pacientes em uma triagem clínica.
-- `assets/mapa_conhecimento.csv` — mapa de conhecimento (ontologia simplificada) com 25 regras que associam conjuntos de sintomas a doenças cardiovasculares.
-- `src/diagnostico_cardiovascular.py` — script em Python que lê as frases, normaliza o texto, casa os sintomas contra o mapa de conhecimento e sugere os diagnósticos mais prováveis para cada paciente.
+### 2. Configurando o Aplicativo Mobile (React Native)
 
-### Estrutura dos Arquivos
+Descubra o endereço de IP local da sua máquina executando `ipconfig` (Windows) ou `ifconfig` (Linux/macOS) no terminal. Abra o seu arquivo de serviço JavaScript e atualize o endereço correspondente:
 
-#### Frases de sintomas (`assets/sintomas_pacientes.txt`)
+```javascript
+// Localizado em seu diretório de serviços móveis (src/services/api.js)
+const API_URL = "http://SEU_IP_LOCAL:5000/predict";
 
-Arquivo de texto com uma frase por linha, cada uma representando o relato livre de um paciente. As frases cobrem quadros clínicos diversos, como dor torácica típica, dispneia aos esforços, edema de membros inferiores, palpitações, crise hipertensiva e sinais sugestivos de infarto agudo do miocárdio.
+```
 
-#### Mapa de conhecimento (`assets/mapa_conhecimento.csv`)
-
-Arquivo CSV estruturado com as colunas `Sintoma1`, `Sintoma2`, `Sintoma3` e `DoencaAssociada`. Cada linha define uma regra de associação entre um conjunto de sintomas e uma doença cardiovascular.
-
-Doenças contempladas no mapa:
-
-- Infarto Agudo do Miocárdio
-- Insuficiência Cardíaca / Insuficiência Cardíaca Congestiva
-- Hipertensão Arterial Sistêmica / Crônica
-- Crise Hipertensiva
-- Angina Pectoris / Angina Instável
-- Arritmia Cardíaca
-- Acidente Vascular Cerebral
-- Síndrome Coronariana Aguda
-- Doença Arterial Coronariana
-- Hemorragia Encefálica
-- Cardiomiopatia
-- Embolia Pulmonar
-
-O mapa foi construído com base em sinais e sintomas descritos nos artigos científicos coletados na Parte 2 (NLP), garantindo rastreabilidade clínica das regras.
-
-#### Script de diagnóstico (`src/diagnostico_cardiovascular.py`)
-
-Script em Python puro (sem dependências externas) que implementa o pipeline:
-
-1. **Carregamento do mapa de conhecimento** a partir do CSV, transformando cada linha em uma regra `{sintomas, doença}`.
-2. **Carregamento das frases** dos pacientes a partir do TXT.
-3. **Normalização textual** (minúsculas e remoção de acentos) para melhorar a correspondência entre o relato do paciente e os sintomas do mapa.
-4. **Identificação de sintomas** via busca por substring dos sintomas normalizados no texto do paciente.
-5. **Agrupamento por doença** e cálculo de uma pontuação de confiança baseada na quantidade de sintomas compatíveis.
-6. **Sugestão do diagnóstico mais provável** para cada paciente, listando também os diagnósticos alternativos e os sintomas identificados em cada caso.
-
-### Como Executar
+No terminal dedicado ao aplicativo móvel, execute a limpeza e inicialização do ecossistema Expo:
 
 ```bash
-python3 src/diagnostico_cardiovascular.py
-```
-
-O script pode ser executado a partir de qualquer diretório — os caminhos dos arquivos `assets/sintomas_pacientes.txt` e `assets/mapa_conhecimento.csv` são resolvidos em relação à localização do próprio script.
-
-### Exemplo de Saída
+npm install
+npx expo start -c
 
 ```
-PACIENTE 1:
-Relato: "Há dois dias estou com uma dor forte no peito que piora quando faço
-esforço físico, sinto um aperto no tórax e falta de ar ao subir escadas."
 
-  Sintomas identificados e diagnósticos sugeridos:
-  → Infarto Agudo do Miocardio (confiança: 1 sintoma(s) compatível(is))
-    Sintomas encontrados: aperto no torax
-  → Insuficiencia Cardiaca Congestiva (confiança: 1 sintoma(s) compatível(is))
-    Sintomas encontrados: falta de ar
-  → Angina Instavel (confiança: 1 sintoma(s) compatível(is))
-    Sintomas encontrados: falta de ar
-
-  ★ DIAGNÓSTICO MAIS PROVÁVEL: Infarto Agudo do Miocardio
-```
-
-### Justificativa
-
-Esta Parte 1 da Fase 2 materializa a ponte entre **dados textuais (NLP)** e **apoio à decisão clínica**. Ao transformar relatos não estruturados em diagnósticos sugeridos por meio de um mapa de conhecimento explícito, o protótipo demonstra, em escala reduzida, o mesmo princípio por trás de sistemas mais sofisticados de triagem automatizada e raciocínio clínico. Apesar de educacional e não substituir avaliação médica, o componente estabelece a base sobre a qual técnicas mais avançadas (NER, embeddings, LLMs) serão aplicadas nas próximas entregas do CardioIA.
-
----
-
-## Fase 3 — Parte 1: Edge Computing com ESP32
-
-### Descrição
-
-Nesta etapa, o CardioIA avança da análise de dados clínicos para a **captura contínua de sinais vitais em tempo real** com um wearable simulado em ESP32. O foco é demonstrar o papel do **Edge Computing** em aplicações críticas de saúde: o dispositivo lê os sensores periodicamente, armazena as leituras localmente em um buffer circular em RAM, decide localmente se há um alerta clínico e sincroniza o histórico acumulado quando a "conexão Wi-Fi" simulada está ativa.
-
-O protótipo é totalmente simulado no Wokwi e está disponível em:
-**https://wokwi.com/projects/463854286798211073**
-
-### Estrutura dos Arquivos
-
-- [`src/fase_3/parte_1_edge/sketch.ino`](src/fase_3/parte_1_edge/sketch.ino) — firmware em C++ comentado (~280 linhas), implementando buffer circular FIFO, leitura periódica e alertas locais.
-- [`src/fase_3/parte_1_edge/diagram.json`](src/fase_3/parte_1_edge/diagram.json) — descrição do circuito (ESP32 DevKit V1 + DHT22 + potenciômetro + LED + push-button).
-- [`src/fase_3/parte_1_edge/libraries.txt`](src/fase_3/parte_1_edge/libraries.txt) — dependências (`DHT sensor library`, `Adafruit Unified Sensor`).
-- [`docs/fase_3/relatorio_parte_1_edge.md`](docs/fase_3/relatorio_parte_1_edge.md) — relatório técnico explicando fluxo, dimensionamento do buffer e estratégia de resiliência.
-
-**Hardware simulado:**
-
-| Componente | Pino | Papel |
-|---|---|---|
-| DHT22 | GPIO 15 | Sensor obrigatório — temperatura + umidade |
-| Potenciômetro | GPIO 34 (ADC) | 2º sensor — simula BPM (40–180) |
-| LED | GPIO 2 | Indica estado online / sincronizando |
-| Push-button | GPIO 4 | Alterna o estado simulado de Wi-Fi |
-
-### Como Executar
-
-1. Abrir https://wokwi.com/projects/463854286798211073 no navegador.
-2. Clicar em **Start the simulation**.
-3. Pressionar o botão (GPIO 4) para alternar entre online (sincroniza buffer) e offline (acumula amostras).
-4. Girar o potenciômetro ou ajustar a temperatura do DHT22 no Wokwi para forçar alertas clínicos.
-
-Alternativa local: clonar os arquivos de `src/fase_3/parte_1_edge/` em um novo projeto Wokwi ou rodar via extensão **Wokwi for VSCode**.
-
-### Exemplo de Saída
-
-```
-=== CardioIA - Edge Node iniciando ===
-Buffer circular em RAM: capacidade = 100 amostras
-Estado inicial: OFFLINE (coletando dados localmente).
-
-[EDGE] t=24.0C  u=60.0%  bpm=110  | buffer=1/100  wifi=OFF
-[EDGE] t=24.0C  u=60.0%  bpm=115  | buffer=2/100  wifi=OFF
-[EDGE] t=24.0C  u=60.0%  bpm=140  *ALERTA*  | buffer=3/100  wifi=OFF
-
->>> Wi-Fi alternado para: ONLINE
-[SYNC] Iniciando envio de 3 amostras para a nuvem...
-[CLOUD<-EDGE] ts=2050,temp=24.00,umid=60.00,bpm=110,alerta=0
-[CLOUD<-EDGE] ts=4055,temp=24.00,umid=60.00,bpm=115,alerta=0
-[CLOUD<-EDGE] ts=6061,temp=24.00,umid=60.00,bpm=140,alerta=1
-[SYNC] OK - 3 amostras enviadas e removidas do buffer local.
-```
-
-### Justificativa
-
-A Parte 1 da Fase 3 demonstra, na prática, **o papel do Edge Computing em aplicações críticas de saúde**: a decisão clínica de "isto é uma anomalia" é tomada localmente (sem latência de rede), e os dados acumulados durante quedas de conexão não são perdidos. O dimensionamento do buffer (100 amostras ≈ 3 min 20 s de autonomia offline) reflete um modelo de wearable realista — paciente entrando em elevador, banho, áreas com sombra de Wi-Fi — e a política FIFO de descarte do mais velho privilegia a relevância clínica dos dados mais recentes. O detalhamento técnico e a justificativa do buffer estão em [docs/fase_3/relatorio_parte_1_edge.md](docs/fase_3/relatorio_parte_1_edge.md).
-
----
-
-## Fase 3 — Parte 2: Transmissão MQTT e Dashboard Node-RED
-
-### Descrição
-
-A Parte 2 completa o pipeline IoT do CardioIA conectando o nó Edge da Parte 1 a um broker **MQTT na nuvem** e visualizando os dados em um **dashboard Node-RED** com chart, gauge e indicador de alerta clínico. Toda a lógica de coleta e o buffer circular da Parte 1 são preservados — o que muda é o transporte: em vez de `Serial.println`, agora o ESP32 publica payloads JSON em tópicos hierárquicos que o dashboard assina via wildcard.
-
-### Estrutura dos Arquivos
-
-- [`src/fase_3/parte_2_nuvem/sketch.ino`](src/fase_3/parte_2_nuvem/sketch.ino) — firmware MQTT (fork da Parte 1) com `WiFi`, `PubSubClient`, `ArduinoJson` e Last Will Testament para detecção de queda.
-- [`src/fase_3/parte_2_nuvem/diagram.json`](src/fase_3/parte_2_nuvem/diagram.json) — mesmo circuito da Parte 1.
-- [`src/fase_3/parte_2_nuvem/libraries.txt`](src/fase_3/parte_2_nuvem/libraries.txt) — dependências.
-- [`src/fase_3/parte_2_nuvem/node_red_flow.json`](src/fase_3/parte_2_nuvem/node_red_flow.json) — flow exportado do Node-RED, importável diretamente.
-- [`docs/fase_3/relatorio_parte_2_nuvem.md`](docs/fase_3/relatorio_parte_2_nuvem.md) — relatório de 2+ páginas sobre arquitetura MQTT, dashboard e considerações de segurança/LGPD.
-
-**Broker MQTT:** `broker.hivemq.com:1883` (público, sem TLS — escolha didática; o relatório detalha a migração para HiveMQ Cloud com TLS em produção).
-
-**Tópicos publicados pelo ESP32:**
-- `cardioia/<deviceId>/sinais` — JSON `{ts, temp, umid, bpm, alert}` a cada 2 s.
-- `cardioia/<deviceId>/alerta` — replicado quando há violação de limiar clínico.
-- `cardioia/<deviceId>/status` — `"online"`/`"offline"` (retained, via LWT).
-
-### Como Executar
-
-```bash
-# 1. Subir Node-RED local
-docker run -it -p 1880:1880 nodered/node-red:latest
-
-# 2. http://localhost:1880 → Menu → Import → colar src/fase_3/parte_2_nuvem/node_red_flow.json → Deploy
-# 3. Abrir o dashboard em http://localhost:1880/ui
-
-# 4. Criar um projeto no Wokwi com os arquivos de src/fase_3/parte_2_nuvem/
-#    e iniciar a simulação.
-
-# 5. (Opcional) Validar payloads no broker via CLI:
-mosquitto_sub -h broker.hivemq.com -t 'cardioia/#' -v
-```
-
-### Dashboard
-
-O flow define um dashboard com:
-
-- **Chart BPM** (linha temporal, últimos 5 min, faixa 30–190).
-- **Gauge de Temperatura** (30–42 °C) com faixas verde (35–37,5 °C), amarela (37,5–38 °C) e vermelha (> 38 °C).
-- **Indicador de alerta clínico** — bloco HTML que muda de **verde "NORMAL"** para **vermelho "ALERTA"** com o motivo (taquicardia, bradicardia, febre ou hipotermia).
-
-Limiares clínicos: BPM > 120 (taquicardia), BPM < 50 (bradicardia), temperatura > 38 °C (febre), temperatura < 35 °C (hipotermia).
-
-### Justificativa
-
-A Parte 2 fecha o ciclo **captura (Edge) → transporte (MQTT) → visualização (Cloud) → alerta**, exatamente como propõe o enunciado do PDF. O uso de MQTT com hierarquia `cardioia/<deviceId>/<assunto>` e wildcard nas assinaturas torna a solução naturalmente escalável para uma frota de wearables, sem necessidade de retrabalho no dashboard. O relatório [docs/fase_3/relatorio_parte_2_nuvem.md](docs/fase_3/relatorio_parte_2_nuvem.md) inclui ainda uma seção sobre **segurança e LGPD**, detalhando as decisões que precisariam ser tomadas para levar este protótipo educacional a um sistema de produção que trate dados sensíveis de saúde.
-
----
-
-#### Limitacoes e Proximos Passos
-
-- **MLP vs CNN**: a MLP trata cada pixel como feature independente, perdendo informacoes espaciais. Uma CNN seria mais adequada para visao computacional, pois preserva relacoes entre pixels vizinhos.
-- **Dataset pequeno**: 928 imagens e um volume reduzido para deep learning. Data augmentation poderia expandir artificialmente o dataset.
-- **Desbalanceamento**: utilizamos class_weight para mitigar o vies para a classe majoritaria. Oversampling (SMOTE) poderia complementar.
-
----
-
-#### Como Executar
-
-1. Certifique-se de ter Python 3.8+ instalado
-2. Instale as dependencias:
-   ```bash
-   pip install tensorflow opencv-python scikit-learn matplotlib seaborn numpy
-   ```
-3. Abra o notebook:
-   ```bash
-   jupyter notebook ir_alem_2/ecg_diagnostico_visual.ipynb
-   ```
-4. Execute todas as celulas sequencialmente
+Aponte a câmera do seu smartphone (iOS ou Android) para o **QR Code** gerado no terminal para carregar a interface do CardioIA através do aplicativo **Expo Go**. Selecione o exame desejado na galeria e pressione o botão verde **"Iniciar Análise IA"** para obter o diagnóstico imediato na tela.
 
 ---
 
 ## Referências
+
 1. UCI Machine Learning Repository: Heart Disease Dataset.
 2. Mendeley Data: ECG Images e CADICA Dataset.
 3. Kaggle: NIH Chest X ray-14.
 4. SciELO & BVS: Literatura Médica Brasileira.
-5. ECG Images dataset of Cardiac Patients
-6. Keras Documentation: https://keras.io
-7. Scikit-learn Documentation: https://scikit-learn.org
+5. Keras Documentation: https://keras.io
+6. Scikit-learn Documentation: https://scikit-learn.org
+7. Fairlearn Toolkit: https://fairlearn.org
 
 ---
 
 ## Licença
-Este projeto é de caráter acadêmico, desenvolvido para fins educacionais no curso de Inteligência Artificial da FIAP.
+
+Este projeto é de caráter estritamente acadêmico, desenvolvido para fins educacionais no curso de Inteligência Artificial da FIAP. Distribuição corporativa e uso clínico real não são autorizados.
