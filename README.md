@@ -17,7 +17,6 @@ O **CardioIA** é um projeto acadêmico desenvolvido no curso de Inteligência A
 
 
 ```
-
 CARDIO-IA/
 ├── .gitignore                         # Arquivos e pastas ignorados pelo Git
 ├── LICENSE                            # Licença de uso do repositório
@@ -38,12 +37,15 @@ CARDIO-IA/
 │   ├── imagens/                       # Gráficos e dashboards gerados no Node-RED
 │   ├── parte_1_edge/                  # Firmware C++ para ESP32 com Buffer FIFO Circular
 │   ├── parte_2_nuvem/                 # Integração MQTT e fluxos de automação RPA
-│   ├── ir-alem-1/                     # Painéis e regras de monitoramento contínuo
 │   └── ir-alem-2/                     # IA Neuromórfica (FHN vs LR) em séries temporais
 │
-└── fase-4-visao-computacional/        # Fase 4: Deep Learning Avançado e Mobile
+└── fase-4-visao-computacional/        # FASE 4: DEEP LEARNING AVANÇADO E MOBILE
     ├── parte1/                        # Treinamento da DenseNet121 vs CNN do Zero
     ├── dataset_estruturado/           # Divisão de imagens de Raio-X por classe clínica
+    ├── imagens/                       # Assets visuais do pipeline de produção
+    │   ├── app.jpeg
+    │   ├── relatorio_cnn.png
+    │   └── relatorio_densenet.png
     ├── ir-alem-1/                     # Módulo de Auditoria de Equidade com Fairlearn
     └── teste.ipynb                    # Notebook de homologação e testes de inferência
 
@@ -218,74 +220,52 @@ Pesquisa científica de classificação de batidas cardíacas utilizando o datas
 
 ---
 
-## 🔬 Fase 4 — Triagem Radiológica com Deep Learning Avançado e Arquitetura Mobile
+## 🔬 Fase 4 — Triagem Radiológica com Deep Learning Avançado
 
-A quarta fase consolida o ecossistema do CardioIA, transicionando modelos computacionais complexos de Visão Computacional de ambientes de pesquisa para um ecossistema completo de produção mobile.
+A quarta fase consolida o ecossistema do CardioIA, desenvolvendo e validando redes profundas aplicadas na classificação multiclasse de imagens de Raio-X de tórax para identificar três condições específicas: **Cardiomegalia**, **Infiltrado Pulmonar** e **Saudável**. Foram avaliados dois pipelines paralelos no TensorFlow:
 
-### parte1 / Modelagem de Visão Computacional Avançada
-Desenvolvimento e validação de redes profundas aplicadas na classificação multiclasse de imagens de Raio-X de tórax para identificar três condições específicas: *Cardiomegalia*, *Infiltrado Pulmonar* e pulmão *Saudável*. Foram avaliados dois pipelines no TensorFlow:
-* **CNN Customizada (Do Zero):** Rede sequencial com 3 blocos convolucionais, max-pooling, regularização por dropout e normalização em lote.
-* **Transfer Learning (DenseNet121):** Arquitetura profunda pré-treinada na ImageNet acoplada a uma camada de classificação customizada para o contexto médico.
-* **Resultado Clínico:** Ambas as arquiteturas alcançaram **71% de Acurácia Global** no conjunto de testes oculto (564 imagens). No entanto, a **DenseNet121 provou-se clinicamente superior** ao obter um F1-Score de **0.24** (com 17% de Recall) na classe complexa de Infiltrado Pulmonar, superando os 0.08 obtidos pela CNN do zero. As conexões diretas dos seus *Dense Blocks* propagam gradientes sem atenuação, retendo texturas e opacidades milimétricas dos pixels radiológicos.
+### 1. Modelagem de Visão Computacional Avançada
 
-### ir-alem-1 / Auditoria de Equidade (Fairness) e Governança de IA
-Como prática obrigatória de IA responsável, o grupo submeteu o modelo final a uma rigorosa auditoria demográfica e estatística utilizando a biblioteca **Fairlearn**:
-* **Disparidade de Gênero Detectada:** A avaliação segmentada via `MetricFrame` revelou uma **diferença crítica de 25% no Recall** em desfavor do subgrupo demográfico feminino, o que induziria taxas inaceitáveis de falsos negativos em mulheres em um cenário hospitalar.
-* **Escassez de Dados:** A classe *Cardiomegalia* registrou métricas zeradas devido ao desbalanceamento extremo na base de testes ocultos (apenas 30 imagens contra mais de 410 do grupo saudável).
-* **Veredito:** O modelo foi categorizado como **Retido por Compliance de Governança**. O plano de mitigação estruturado para a próxima versão prevê a aplicação de técnicas de *Oversampling* em disco, ajuste dinâmico do limiar médico de decisão e explicabilidade por mapas de calor via **Grad-CAM**.
+* **CNN Customizada (Do Zero):** Rede sequencial com 3 blocos convolucionais (`Conv2D`), normalização em lote (`BatchNormalization`), redução espacial (`MaxPooling2D`) e regularização via `Dropout` para evitar sobreajuste.
+* **Transfer Learning (DenseNet121):** Arquitetura convolucional profunda com blocos densos de reaproveitamento de características, pré-treinada na base ImageNet e acoplada a uma cabeça classificadora customizada para o contexto clínico.
 
-### Arquitetura de Produção e Deploy (Backend & Mobile)
-Para disponibilizar as predições da DenseNet121 na ponta da linha médica, a arquitetura foi desmembrada em dois componentes funcionais ativos:
+#### Análise das Métricas de Desempenho
+Ambas as arquiteturas alcançaram **71% de Acurácia Global** no conjunto de testes oculto (564 imagens). No entanto, o comportamento interno dos modelos expõe a clara superioridade da transferência de aprendizado para a tomada de decisão médica:
 
-#### 1. Servidor de Inferência (API Flask)
-Hospedado no arquivo `api_cardio_ia.py`, este microsserviço em Python é responsável por isolar a execução do modelo e servir os dados na rede local:
-* Carrega a estrutura do modelo em disco (`.h5`) mitigando incompatibilidades através do isolamento de compilação (`compile=False`).
-* Disponibiliza o endpoint `/predict` via requisições POST assíncronas habilitadas para conexões externas via `Flask-CORS`.
-* Executa o pré-processamento rigoroso dos bytes de imagem recebidos (redimensionamento para $256 \times 256$ e normalização flutuante via `tf.keras.applications.densenet.preprocess_input`).
+| Arquitetura | Métrica Global | Recall (Cardiomegalia) | Recall (Infiltrado) | Recall (Saudável) |
+| :--- | :---: | :---: | :---: | :---: |
+| **CNN Customizada (Do Zero)** | 71.0% | 20.0% | 10.0% | **93.0%** |
+| **DenseNet121 (Melhor Modelo)** | 65.0% | **47.0%** | **38.0%** | 73.0% |
 
-#### 2. Aplicativo Cliente (React Native + Expo Go)
-Controlado pelo arquivo central `App.js` e integrado ao serviço de comunicação `src/services/api.js`:
-* Apresenta uma interface limpa e responsiva voltada para profissionais de saúde.
-* Gerencia permissões nativas de acesso à galeria de imagens do smartphone.
-* Realiza o envio assíncrono das imagens através de objetos estruturados do tipo `FormData`.
-* Consome o retorno JSON do servidor Flask e exibe na tela o diagnóstico preditivo acompanhado de sua respectiva taxa percentual de confiança, tratando eventuais falhas de forma segura.
+> ⚠️ **Insight Clínico Fundamental:** A CNN desenvolvida do zero sofreu um forte viés induzido pelo desbalanceamento do dataset, tendendo a classificar quase todos os exames como "Saudável" (Recall de 93%) e ignorando patologias críticas. Em ambiente hospitalar, isso geraria um índice inaceitável de falsos negativos. A **DenseNet121 provou-se clinicamente superior**, pois seus blocos conectados propagam gradientes sem atenuação, retendo texturas e opacidades milimétricas cruciais para detectar o Infiltrado Pulmonar e a Cardiomegalia.
+
+#### Matrizes de Confusão Comparativas
+
+Aqui estão os relatórios e distribuições de erro extraídos diretamente do ambiente de treinamento de cada uma das abordagens:
+
+##### Abordagem 1: Desempenho da CNN do Zero
+![Relatório de Erros da CNN Customizada](fase-4-visao-computacional/imagens/relatorio_cnn.png)
+
+##### Abordagem 2: Desempenho do Transfer Learning (DenseNet121)
+![Relatório de Erros da DenseNet121](fase-4-visao-computacional/imagens/relatorio_densenet.png)
 
 ---
 
-## 🛠️ Como Executar a Fase 4 (Passo a Passo)
+### 2. Auditoria de Equidade (Fairness) e Governança de IA
+Como prática obrigatória de IA responsável (*Responsible AI*), o grupo submeteu o melhor modelo a uma rigorosa auditoria demográfica e estatística utilizando a biblioteca `Fairlearn`:
 
-### 1. Inicializando o Backend (API Flask)
-Abra o terminal do seu sistema operacional na pasta do projeto e execute os comandos para instalar as dependências e iniciar o servidor de inferência:
-```bash
-pip install flask flask-cors tensorflow pillow numpy
-python fase-4-visao-computacional/api_cardio_ia.py
-
-```
-
-*Mantenha essa janela do terminal aberta. O log deve confirmar que o servidor está escutando requisições na porta 5000.*
-
-### 2. Configurando o Aplicativo Mobile (React Native)
-
-Descubra o endereço de IP local da sua máquina executando `ipconfig` (Windows) ou `ifconfig` (Linux/macOS) no terminal. Abra o seu arquivo de serviço JavaScript e atualize o endereço correspondente:
-
-```javascript
-// Localizado em seu diretório de serviços móveis (src/services/api.js)
-const API_URL = "http://SEU_IP_LOCAL:5000/predict";
-
-```
-
-No terminal dedicado ao aplicativo móvel, execute a limpeza e inicialização do ecossistema Expo:
-
-```bash
-npm install
-npx expo start -c
-
-```
-
-Aponte a câmera do seu smartphone (iOS ou Android) para o **QR Code** gerado no terminal para carregar a interface do CardioIA através do aplicativo **Expo Go**. Selecione o exame desejado na galeria e pressione o botão verde **"Iniciar Análise IA"** para obter o diagnóstico imediato na tela.
+* **Disparidade de Gênero Detectada:** A avaliação segmentada via `MetricFrame` revelou uma diferença crítica de **25% no Recall** em desfavor do subgrupo demográfico feminino, o que induziria taxas inaceitáveis de falsos negativos em mulheres em um cenário hospitalar real.
+* **Escassez de Dados:** A classe Cardiomegalia registrou métricas baixas/zeradas devido ao desbalanceamento extremo na base de testes originais (apenas 30 imagens contra mais de 410 do grupo saudável).
+* **Veredito:** O modelo foi categorizado como **Retido por Compliance de Governança** (Reprovado para produção sem mitigação). O plano de ação estruturado prevê a aplicação de técnicas de *Oversampling* em disco, ajuste dinâmico do limiar médico de decisão e explicabilidade por mapas de calor via **Grad-CAM** nas próximas iterações.
 
 ---
 
+## 🛠️ Como Reproduzir o Treinamento
+
+Abra o terminal do seu sistema operacional na pasta raiz do projeto e execute os comandos para instalar as dependências necessárias e rodar o pipeline de dados:
+```bash
+pip install tensorflow fairlearn scikit-learn pandas numpy matplotlib seaborn pillow
+````
 ## Referências
 
 1. UCI Machine Learning Repository: Heart Disease Dataset.
